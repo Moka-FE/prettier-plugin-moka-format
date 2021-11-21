@@ -1,5 +1,6 @@
 import { Plugin, SupportOptions } from 'prettier';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
+import { parsers as babelParsers } from 'prettier/parser-babel';
 
 import { sortImport } from './import-sort';
 
@@ -32,15 +33,15 @@ const options: SupportOptions = {
 
 export const plugin: Plugin = {
   parsers: {
-    javascript: {
-      ...typescriptParsers.typescript,
-      preprocess: sortImport,
-    },
+      babel: {
+          ...babelParsers.babel,
+          preprocess: sortImport,
+      },
     typescript: {
       ...typescriptParsers.typescript,
       preprocess: sortImport,
     },
-    style: {
+    css: {
       ...postcssParsers.css,
     },
   },
