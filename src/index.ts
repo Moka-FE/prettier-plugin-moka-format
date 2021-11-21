@@ -1,4 +1,4 @@
-import { Parser, Plugin, SupportOptions } from 'prettier';
+import { Parser, SupportOptions } from 'prettier';
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
@@ -41,7 +41,7 @@ const options: SupportOptions = {
   },
 };
 
-export const plugin: Plugin = {
+module.exports = {
   parsers: {
     babel: {
       ...babelParsers.babel,

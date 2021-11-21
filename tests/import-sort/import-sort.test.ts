@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { format } from 'prettier';
 import { merge } from 'lodash';
 import { PrettierOptions } from '../../src/types';
-import { plugin } from '../../src';
+import * as plugin from '../../src';
 import { prettierOption } from '../common';
 
 describe('import sort', () => {
