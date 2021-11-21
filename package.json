@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-moka-sort",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "prettier plugin for moka sort",
   "main": "lib/src/index.js",
   "repository": {
