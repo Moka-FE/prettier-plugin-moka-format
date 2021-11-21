@@ -9,8 +9,12 @@
   },
   "homepage": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort#readme",
   "scripts": {
+    "prepare": "yarn run compile",
+    "compile": "tsc",
+    "preexample": "yarn run compile",
     "test": "jest",
-    "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js"
+    "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
+    "prepublishOnly": "npm run compile && npm run test"
   },
   "keywords": [
     "prettier",
