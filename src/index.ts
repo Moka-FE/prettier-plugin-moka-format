@@ -1,6 +1,6 @@
 import { Parser, Plugin, SupportOptions } from 'prettier';
-import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 import { parsers as babelParsers } from 'prettier/parser-babel';
+import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
 import { sortImport } from './import-sort';
 
@@ -29,14 +29,24 @@ const options: SupportOptions = {
     default: false,
     description: 'Should specifiers be sorted?',
   },
+  importOrderParserPlugins: {
+    since: '0.0.3',
+    type: 'path',
+    category: 'Global',
+    array: true,
+    // By default, we add ts and jsx as parsers but if users define something
+    // we take that option
+    default: [{ value: ['typescript', 'jsx'] }],
+    description: 'Provide a list of plugins for special syntax',
+  },
 };
 
 export const plugin: Plugin = {
   parsers: {
-      babel: {
-          ...babelParsers.babel,
-          preprocess: sortImport as Parser['preprocess'],
-      },
+    babel: {
+      ...babelParsers.babel,
+      preprocess: sortImport as Parser['preprocess'],
+    },
     typescript: {
       ...typescriptParsers.typescript,
       preprocess: sortImport as Parser['preprocess'],
