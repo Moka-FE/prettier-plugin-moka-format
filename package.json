@@ -2,7 +2,12 @@
   "name": "prettier-plugin-moka-sort",
   "version": "0.0.1",
   "description": "prettier plugin for moka sort",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort",
+    "type": "git"
+  },
+  "homepage": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort#readme",
   "scripts": {
     "test": "jest",
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js"
@@ -15,7 +20,11 @@
     "typescript",
     "javascript"
   ],
-  "author": "ZhuangQuan",
+  "author": {
+    "name": "Zhuang Quan",
+    "email": "zhuangpipi01@gmail.com",
+    "url": "https://github.com/ZhuangDengDeng"
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.13.10",
