@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-moka-sort",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "prettier plugin for moka sort",
   "main": "lib/src/index.js",
   "repository": {
@@ -16,7 +16,7 @@
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
     "prepublishOnly": "npm run compile && npm run test",
     "postversion": "git push && git push --tags",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\" ",
     "version": "npm run format && git add -A src"
   },
   "keywords": [
