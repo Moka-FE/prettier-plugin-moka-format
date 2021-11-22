@@ -1,6 +1,6 @@
 # Prettier plugin moka sort
 
-### Install
+#### Install
 
 npm
 
@@ -15,7 +15,7 @@ yarn add --dev prettier-plugin-moka-sort
 ```
 
 
-### Usage
+#### Usage
 
 Add an order in prettier config file.
 
@@ -43,7 +43,7 @@ default value: `false`
 "importOrderSeparation" : true
 ```
 
-排序分组之后的 import 之间 增加一行空行
+desc: 排序分组之后的 import 之间 增加一行空行
 
 
 
@@ -57,7 +57,6 @@ defalut value: false
 "importOrderSortSpecifiers":true		
 ```
 
-对 imoprt 导入的 标识符 sort
 
 ```js
 // before
@@ -66,16 +65,19 @@ import { b, a } from 'xx'
 // after
 import { a, b } from 'xx'
 ```
+desc: 对 imoprt 导入的 标识符 sort
 
 
 
-**import 分为固定4组 `packages、components、styles、 utiles`**
+### 此处开始为分组相关api 
 
-前三种通过正则匹配path判断import属于哪个分组 
-
-匹配不到的统一归为 utiles 
-
-如果有本地alias ，可以配置`importAliasRegExp`来避免被归为 packages
+> **import 分为固定4组 `packages、components、others、 utils`**
+>
+> 前三种通过正则匹配path判断import属于哪个分组 
+>
+> 匹配不到的统一归为 utils 
+>
+> 如果有本地alias ，可以配置`importAliasRegExp`来避免被归为 packages
 
 
 
@@ -83,7 +85,7 @@ import { a, b } from 'xx'
 
 type : `string`
 
-defalut value : `^(@moka-fe|@components)`
+defalut value : `^(@moka-fe|@\/)`
 
 
 
@@ -103,11 +105,11 @@ defalut value: `([A-Z](\\w+))$`
 
 
 
-#### `importStyleRegExp`
+#### `importOtherRegExp`
 
 type : `string`
 
-defalut value: `(.styl|.css)$`
+defalut value: `((\\.)\\w+)$`
 
 
 
