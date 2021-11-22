@@ -12,7 +12,7 @@ type GetSortedNodes = (
       PrettierOptions,
       | 'importOrderSeparation'
       | 'importOrderSortSpecifiers'
-      | 'importStyleRegExp'
+      | 'importOtherRegExp'
       | 'importPackageRegExp'
       | 'importComponentRegExp'
       | 'importAliasRegExp'
@@ -29,7 +29,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     importAliasRegExp,
     importComponentRegExp,
     importPackageRegExp,
-    importStyleRegExp,
+    importOtherRegExp,
     importPackagesFooter,
     importPackagesHeader,
   } = options;
@@ -53,9 +53,9 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
       group: IMPORT_ORDER_KEY.UTILS,
     },
     {
-      group: IMPORT_ORDER_KEY.STYLES,
+      group: IMPORT_ORDER_KEY.OTHERS,
       condition: (str: string) => {
-        return new RegExp(importStyleRegExp).test(str);
+        return new RegExp(importOtherRegExp).test(str);
       },
     },
   ];
@@ -80,7 +80,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     [IMPORT_ORDER_KEY.PACKAGES]: createSortPackages(importPackagesHeader, importPackagesFooter),
     [IMPORT_ORDER_KEY.COMPONENTS]: sortOthers,
     [IMPORT_ORDER_KEY.UTILS]: sortOthers,
-    [IMPORT_ORDER_KEY.STYLES]: sortOthers,
+    [IMPORT_ORDER_KEY.OTHERS]: sortOthers,
   };
 
   for (const { group } of importOrder) {

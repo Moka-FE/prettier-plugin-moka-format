@@ -18,14 +18,14 @@ export enum IMPORT_ORDER_KEY {
   PACKAGES = 'packages',
   COMPONENTS = 'components',
   UTILS = 'utils',
-  STYLES = 'styles',
+  OTHERS = 'others',
 }
 
 export const REGS = {
-  ALIAS: '^(@moka-fe|@components)',
+  ALIAS: '^(@moka-fe|@\/)',
   PACKAGE: '^([a-z]|@)(.+)$',
   COMPONENT: '([A-Z](\\w+))$',
-  STYLES: '(.styl|.css)$',
+  OTHERS: '((\\.)\\w+)$',
 };
 
 const getPackageRegExpString = (name: string) => {
@@ -33,20 +33,17 @@ const getPackageRegExpString = (name: string) => {
 };
 
 export const PACKAGES_HEADER = [
-  getPackageRegExpString('react-hot-loader'),
-  getPackageRegExpString('react'),
-  getPackageRegExpString('react-dom'),
-  getPackageRegExpString('redux'),
-  getPackageRegExpString('react-redux'),
-  getPackageRegExpString('prop-types'),
-  getPackageRegExpString('react-router'),
-  getPackageRegExpString('react-router-dom'),
-  getPackageRegExpString('mage-react-router'),
-];
-export const PACKAGES_FOOTER = [
-  getPackageRegExpString('moka-ui'),
-  getPackageRegExpString('sugar-design'),
-  getPackageRegExpString('@SDFoundation'),
-  getPackageRegExpString('@SDV'),
-  getPackageRegExpString('@@cms'),
-];
+  'react-hot-loader',
+  'react',
+  'react-dom',
+  'redux',
+  'react-redux',
+  'prop-types',
+  'react-router',
+  'react-router-dom',
+  'mage-react-router',
+].map((name) => getPackageRegExpString(name));
+
+export const PACKAGES_FOOTER = ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'].map(
+  (name) => getPackageRegExpString(name)
+);

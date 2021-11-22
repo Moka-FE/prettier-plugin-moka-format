@@ -46,13 +46,13 @@ const options: SupportOptions = {
     default: REGS.COMPONENT,
     description: 'Regex to match import component',
   },
-  importStyleRegExp: {
+  importOtherRegExp: {
     since: '0.0.6',
     type: 'path',
     array: false,
     category: 'Global',
-    default: REGS.STYLES,
-    description: 'Regex to match import style',
+    default: REGS.OTHERS,
+    description: 'Regex to match import others',
   },
   importOrderSeparation: {
     since: '0.0.1',

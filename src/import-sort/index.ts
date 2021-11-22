@@ -15,7 +15,7 @@ export function sortImport(code: string, options: PrettierOptions) {
     importAliasRegExp,
     importComponentRegExp,
     importPackageRegExp,
-    importStyleRegExp,
+    importOtherRegExp,
     importPackagesHeader,
     importPackagesFooter,
   } = options;
@@ -46,7 +46,7 @@ export function sortImport(code: string, options: PrettierOptions) {
     importAliasRegExp,
     importComponentRegExp,
     importPackageRegExp,
-    importStyleRegExp,
+    importOtherRegExp,
     importOrderSeparation,
     importOrderSortSpecifiers,
     importPackagesHeader,

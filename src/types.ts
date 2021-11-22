@@ -12,7 +12,7 @@ export interface PrettierOptions extends ParserOptions {
   importAliasRegExp: string;
   importPackageRegExp: string;
   importComponentRegExp: string;
-  importStyleRegExp: string;
+  importOtherRegExp: string;
   importOrderSeparation: boolean;
   importOrderSortSpecifiers: boolean;
   importOrderParserPlugins: string[];

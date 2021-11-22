@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ConnectedProps, connect } from 'react-redux';
 // comment 4
 import { PropsWithRouteConfig, withRouter } from 'mage-react-router';
-// comment 2
-import cms from '@cms';
 import classNames from 'classnames';
 import { SelectProps } from 'sugar-design/types/lib/components/Select/Select';
 import { Form, Menu, Modal, Select, Spacing, Tag, sendMessage } from 'sugar-design';
 import * as sdf from '@SDFoundation';
+// comment 2
+import cms from '@cms';
 import { ValidResultMap } from '../../models/batchValidate';
 import SelectEmailTemplate from '../candidates/interview/editModal/components/SelectEmailTemplate/SelectEmailTemplate';
 import ValidateDetailAlert from '../common/batchOperationValidate/ValidateDetailAlert';
