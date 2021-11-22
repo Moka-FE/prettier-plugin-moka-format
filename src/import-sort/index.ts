@@ -2,7 +2,6 @@ import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
-import { DEFAULT_IMPORT_ORDER } from '../constants';
 import { PrettierOptions } from '../types';
 import { getCodeFromAst } from './get-code-from-ast';
 import { getExperimentalParserPlugins } from './get-experimental-parser-plugins';
@@ -10,10 +9,15 @@ import { getSortedNodes } from './get-sorted-nodes';
 
 export function sortImport(code: string, options: PrettierOptions) {
   const {
-    importOrder = DEFAULT_IMPORT_ORDER,
     importOrderSeparation,
     importOrderSortSpecifiers,
     importOrderParserPlugins,
+    importAliasRegExp,
+    importComponentRegExp,
+    importPackageRegExp,
+    importStyleRegExp,
+    importPackagesHeader,
+    importPackagesFooter,
   } = options;
 
   const importNodes: ImportDeclaration[] = [];
@@ -39,9 +43,14 @@ export function sortImport(code: string, options: PrettierOptions) {
   if (importNodes.length === 0) return code;
 
   const allImports = getSortedNodes(importNodes, {
-    importOrder,
+    importAliasRegExp,
+    importComponentRegExp,
+    importPackageRegExp,
+    importStyleRegExp,
     importOrderSeparation,
     importOrderSortSpecifiers,
+    importPackagesHeader,
+    importPackagesFooter,
   });
 
   return getCodeFromAst(allImports, code, interpreter);

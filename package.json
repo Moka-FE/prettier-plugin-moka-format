@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-moka-sort",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "prettier plugin for moka sort",
   "main": "lib/src/index.js",
   "repository": {
@@ -9,12 +9,15 @@
   },
   "homepage": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort#readme",
   "scripts": {
-    "prepare": "yarn run compile",
+    "prepare": "npm run compile",
     "compile": "tsc",
-    "preexample": "yarn run compile",
+    "preexample": "npm run compile",
     "test": "jest",
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
-    "prepublishOnly": "npm run compile && npm run test"
+    "prepublishOnly": "npm run compile && npm run test",
+    "postversion": "git push && git push --tags",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "version": "npm run format && git add -A src"
   },
   "keywords": [
     "prettier",

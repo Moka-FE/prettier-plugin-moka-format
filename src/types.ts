@@ -9,10 +9,15 @@ export interface ImportOrder {
 }
 
 export interface PrettierOptions extends ParserOptions {
-  importOrder: ImportOrder[];
+  importAliasRegExp: string;
+  importPackageRegExp: string;
+  importComponentRegExp: string;
+  importStyleRegExp: string;
   importOrderSeparation: boolean;
   importOrderSortSpecifiers: boolean;
   importOrderParserPlugins: string[];
+  importPackagesHeader: string[];
+  importPackagesFooter: string[];
 }
 
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;
