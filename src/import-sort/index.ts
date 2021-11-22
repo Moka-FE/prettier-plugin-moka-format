@@ -18,7 +18,13 @@ export function sortImport(code: string, options: PrettierOptions) {
     importOtherRegExp,
     importPackagesHeader,
     importPackagesFooter,
+    importIgnoreFilePath,
+    filepath,
   } = options;
+
+  if (importIgnoreFilePath.some((path) => path === filepath)) {
+    return code;
+  }
 
   const importNodes: ImportDeclaration[] = [];
 

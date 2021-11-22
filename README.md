@@ -17,15 +17,10 @@ yarn add --dev prettier-plugin-moka-sort
 
 #### Usage
 
-Add an order in prettier config file.
+最简单的开始方式
 
 ```ecmascript 6
 module.exports = {
-  "printWidth": 80,
-  "tabWidth": 4,
-  "trailingComma": "all",
-  "singleQuote": true,
-  "semi": true,
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
@@ -66,6 +61,16 @@ import { b, a } from 'xx'
 import { a, b } from 'xx'
 ```
 desc: 对 imoprt 导入的 标识符 sort
+
+#### `importIgnoreFilePath`
+
+type: `string []`
+
+defalut value: []
+
+```json
+"importIgnoreFilePath": ["src/app.js"]		
+```
 
 
 
