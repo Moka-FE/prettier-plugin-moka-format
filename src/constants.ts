@@ -22,7 +22,7 @@ export enum IMPORT_ORDER_KEY {
 }
 
 export const REGS = {
-  ALIAS: '^(@moka-fe|@\/)',
+  ALIAS: '^(@moka-fe|@/)',
   PACKAGE: '^([a-z]|@)(.+)$',
   COMPONENT: '([A-Z](\\w+))$',
   OTHERS: '((\\.)\\w+)$',
