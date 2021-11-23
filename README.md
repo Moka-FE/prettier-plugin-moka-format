@@ -62,16 +62,6 @@ import { a, b } from 'xx'
 ```
 desc: 对 imoprt 导入的 标识符 sort
 
-#### `importIgnoreFilePath`
-
-type: `string []`
-
-defalut value: []
-
-```json
-"importIgnoreFilePath": ["src/app.js"]		
-```
-
 
 
 ### 此处开始为分组相关api 

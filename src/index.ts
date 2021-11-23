@@ -6,14 +6,6 @@ import { sortImport } from './import-sort';
 import { PACKAGES_FOOTER, PACKAGES_HEADER, REGS } from './constants';
 
 const options: SupportOptions = {
-  importIgnoreFilePath: {
-    since: '0.1.0',
-    type: 'path',
-    array: true,
-    category: 'Global',
-    default: [{ value: [] }],
-    description: 'ignore file path',
-  },
   importPackagesHeader: {
     since: '0.0.6',
     type: 'path',

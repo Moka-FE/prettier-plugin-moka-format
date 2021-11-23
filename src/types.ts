@@ -18,7 +18,6 @@ export interface PrettierOptions extends ParserOptions {
   importOrderParserPlugins: string[];
   importPackagesHeader: string[];
   importPackagesFooter: string[];
-  importIgnoreFilePath: string[];
 }
 
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;
