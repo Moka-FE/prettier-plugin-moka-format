@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-moka-format",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "prettier plugin for moka format",
   "main": "lib/src/index.js",
   "repository": {
