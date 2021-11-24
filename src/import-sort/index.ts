@@ -3,9 +3,9 @@ import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
-import { getCodeFromAst } from './get-code-from-ast';
-import { getExperimentalParserPlugins } from './get-experimental-parser-plugins';
-import { getSortedNodes } from './get-sorted-nodes';
+import { getCodeFromAst } from './getCodeFromAst';
+import { getExperimentalParserPlugins } from './getExperimentalParserPlugins';
+import { getSortedNodes } from './getSortedNodes';
 
 export function sortImport(code: string, options: PrettierOptions) {
   const {

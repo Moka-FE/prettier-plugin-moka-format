@@ -1,7 +1,7 @@
 import { clone, isEqual } from 'lodash';
 import { ImportOrLine, ImportGroups, PrettierOptions, ImportOrder } from '../types';
 import { IMPORT_ORDER_KEY, newLineNode } from '../constants';
-import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
+import { getImportNodesMatchedGroup } from './getImportNodesMatchedGroup';
 import { createSortPackages, getSortedImportSpecifiers, sortOthers } from './sort';
 import { addComments, ImportDeclaration, removeComments } from '@babel/types';
 
