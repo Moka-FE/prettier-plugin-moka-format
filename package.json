@@ -4,10 +4,10 @@
   "description": "prettier plugin for moka format",
   "main": "lib/src/index.js",
   "repository": {
-    "url": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort",
+    "url": "https://github.com/pipi-1997/prettier-plugin-moka-format",
     "type": "git"
   },
-  "homepage": "https://github.com/ZhuangDengDeng/prettier-plugin-moka-sort#readme",
+  "homepage": "https://github.com/pipi-1997/prettier-plugin-moka-format",
   "scripts": {
     "prepare": "npm run compile",
     "compile": "tsc",
@@ -30,7 +30,7 @@
   "author": {
     "name": "Zhuang Quan",
     "email": "zhuangpipi01@gmail.com",
-    "url": "https://github.com/ZhuangDengDeng"
+    "url": "https://github.com/pipi-1997"
   },
   "license": "MIT",
   "dependencies": {
