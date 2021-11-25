@@ -1,4 +1,4 @@
-# Prettier plugin moka sort
+# Prettier plugin moka format
 
 #### Install
 
