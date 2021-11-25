@@ -46,7 +46,7 @@ desc: 排序分组之后的 import 之间 增加一行空行
 
 type: `boolean`
 
-defalut value: false
+default value: false
 
 ```json
 "importOrderSortSpecifiers":true		
@@ -73,6 +73,8 @@ desc: 对 imoprt 导入的 标识符 sort
 > 匹配不到的统一归为 utils 
 >
 > 如果有本地alias ，可以配置`importAliasRegExp`来避免被归为 packages
+> 
+> 如果要覆盖 `importAliasRegExp` 之类的配置，一定注意不要写成 `@` 这种，这个是正则匹配，写成 `@` 会导致 路径上所有 带 `@` 的都会被识别到， 例如 `@lingui`
 
 
 
@@ -80,7 +82,7 @@ desc: 对 imoprt 导入的 标识符 sort
 
 type : `string`
 
-defalut value : `^(@moka-fe|@\/)`
+default value : `^(@moka-fe|@\/)`
 
 
 
@@ -88,7 +90,7 @@ defalut value : `^(@moka-fe|@\/)`
 
 type: `string`
 
-defalut value: `^([a-z]|@)(.+)$`
+default value: `^([a-z]|@)(.+)$`
 
 
 
@@ -96,7 +98,7 @@ defalut value: `^([a-z]|@)(.+)$`
 
 type : `string`
 
-defalut value: `([A-Z](\\w+))$`
+default value: `/([A-Z](\w+))$`
 
 
 
@@ -104,7 +106,7 @@ defalut value: `([A-Z](\\w+))$`
 
 type : `string`
 
-defalut value: `((\\.)\\w+)$`
+default value: `((\\.)\\w+)$`
 
 
 
@@ -120,7 +122,7 @@ defalut value: `((\\.)\\w+)$`
 
 type: `string[]`
 
-defalut : 
+default : 
 
 ```javascript
 [
@@ -142,7 +144,7 @@ defalut :
 
 type: `string[]`
 
-defalut:
+default:
 
 ```javascript
 ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms']

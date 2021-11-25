@@ -9,7 +9,6 @@ import * as sdf from '@SDFoundation';
 // comment 2
 import cms from '@cms';
 
-import { ValidResultMap } from '../../models/batchValidate';
 import SelectEmailTemplate from '../candidates/interview/editModal/components/SelectEmailTemplate/SelectEmailTemplate';
 import ValidateDetailAlert from '../common/batchOperationValidate/ValidateDetailAlert';
 
@@ -23,6 +22,7 @@ import {
   getInterviewNotificationInfo,
   prepareForBulkCreateInterviews,
 } from '../../actions/interview';
+import { ValidResultMap } from '../../models/batchValidate';
 // comment 1
 import {
   AppointmentInterview,

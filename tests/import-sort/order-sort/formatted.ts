@@ -8,7 +8,6 @@ import { Form, Menu, Modal, Select, sendMessage, Spacing, Tag } from 'sugar-desi
 import * as sdf from '@SDFoundation';
 // comment 2
 import cms from '@cms';
-import { ValidResultMap } from '../../models/batchValidate';
 import SelectEmailTemplate from '../candidates/interview/editModal/components/SelectEmailTemplate/SelectEmailTemplate';
 import ValidateDetailAlert from '../common/batchOperationValidate/ValidateDetailAlert';
 import { BATCH_VALIDATE_TYPE } from '../../../common/constant';
@@ -21,6 +20,7 @@ import {
   getInterviewNotificationInfo,
   prepareForBulkCreateInterviews,
 } from '../../actions/interview';
+import { ValidResultMap } from '../../models/batchValidate';
 // comment 1
 import {
   AppointmentInterview,
