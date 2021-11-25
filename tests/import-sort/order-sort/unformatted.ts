@@ -10,18 +10,19 @@ import styles from './AddCandidatesToAppointmentModal.cm.styl';
 // comment 3
 import { getI18n } from '../../../common/i18n';
 import {
-    addScheduleInterviewApplication,
-    checkAlreadyBookedApplicationIds,
-    getAppointmentInterviewList,
-    getInterviewNotificationInfo,
-    prepareForBulkCreateInterviews,
+  addScheduleInterviewApplication,
+  checkAlreadyBookedApplicationIds,
+  getAppointmentInterviewList,
+  getInterviewNotificationInfo,
+  prepareForBulkCreateInterviews,
 } from '../../actions/interview';
 import { ValidResultMap } from '../../models/batchValidate';
+import {App} from '@/App'
 // comment 1
 import {
-    AppointmentInterview,
-    InterviewNotificationInfo,
-    NotificationType,
+  AppointmentInterview,
+  InterviewNotificationInfo,
+  NotificationType,
 } from '../../models/interview';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'; // comment 2
 import cms from '@cms';

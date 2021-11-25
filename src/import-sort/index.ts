@@ -12,7 +12,7 @@ export function sortImport(code: string, options: PrettierOptions) {
     importOrderSeparation,
     importOrderSortSpecifiers,
     importOrderParserPlugins,
-    importAliasRegExp,
+    importAliasRegExpList,
     importComponentRegExp,
     importPackageRegExp,
     importOtherRegExp,
@@ -43,7 +43,7 @@ export function sortImport(code: string, options: PrettierOptions) {
   if (importNodes.length === 0) return code;
 
   const allImports = getSortedNodes(importNodes, {
-    importAliasRegExp,
+    importAliasRegExpList,
     importComponentRegExp,
     importPackageRegExp,
     importOtherRegExp,

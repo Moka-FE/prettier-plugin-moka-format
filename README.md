@@ -72,17 +72,17 @@ desc: 对 imoprt 导入的 标识符 sort
 >
 > 匹配不到的统一归为 utils 
 >
-> 如果有本地alias ，可以配置`importAliasRegExp`来避免被归为 packages
+> 如果有本地alias ，可以配置`importAliasRegExpList`来避免被归为 packages
 > 
-> 如果要覆盖 `importAliasRegExp` 之类的配置，一定注意不要写成 `@` 这种，这个是正则匹配，写成 `@` 会导致 路径上所有 带 `@` 的都会被识别到， 例如 `@lingui`
+> 如果要覆盖 `importAliasRegExpList` 之类的配置，一定注意不要写成 `@` 这种，这个是正则匹配，写成 `@` 会导致 路径上所有 带 `@` 的都会被识别到， 例如 `@lingui`
 
 
 
-#### `importAliasRegExp`
+#### `importAliasRegExpList`
 
-type : `string`
+type : `string[]`
 
-default value : `^(@moka-fe|@\/)`
+default value : `['^@/'] `
 
 
 

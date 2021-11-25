@@ -15,7 +15,7 @@ type GetSortedNodes = (
       | 'importOtherRegExp'
       | 'importPackageRegExp'
       | 'importComponentRegExp'
-      | 'importAliasRegExp'
+      | 'importAliasRegExpList'
       | 'importPackagesFooter'
       | 'importPackagesHeader'
     >
@@ -26,7 +26,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
   const {
     importOrderSeparation,
     importOrderSortSpecifiers,
-    importAliasRegExp,
+    importAliasRegExpList,
     importComponentRegExp,
     importPackageRegExp,
     importOtherRegExp,
@@ -39,7 +39,8 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
       group: IMPORT_ORDER_KEY.PACKAGES,
       condition: (str: string) => {
         return (
-          new RegExp(importPackageRegExp).test(str) && !new RegExp(importAliasRegExp).test(str)
+          new RegExp(importPackageRegExp).test(str) &&
+          !importAliasRegExpList.some((regExp) => new RegExp(regExp).test(str))
         );
       },
     },

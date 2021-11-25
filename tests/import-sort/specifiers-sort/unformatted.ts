@@ -17,6 +17,7 @@ import {
     prepareForBulkCreateInterviews,
 } from '../../actions/interview';
 import { ValidResultMap } from '../../models/batchValidate';
+import {App} from '@/App'
 // comment 1
 import {
     AppointmentInterview,

@@ -9,7 +9,7 @@ export interface ImportOrder {
 }
 
 export interface PrettierOptions extends ParserOptions {
-  importAliasRegExp: string;
+  importAliasRegExpList: string[];
   importPackageRegExp: string;
   importComponentRegExp: string;
   importOtherRegExp: string;

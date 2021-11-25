@@ -22,10 +22,10 @@ const options: SupportOptions = {
     default: [{ value: PACKAGES_FOOTER }],
     description: 'package footer order',
   },
-  importAliasRegExp: {
-    since: '0.0.6',
+  importAliasRegExpList: {
+    since: '0.1.6',
     type: 'path',
-    array: false,
+    array: true,
     category: 'Global',
     default: REGS.ALIAS,
     description: 'Regex to match import alias',

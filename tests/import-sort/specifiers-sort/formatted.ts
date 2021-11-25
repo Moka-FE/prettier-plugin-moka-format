@@ -10,6 +10,7 @@ import * as sdf from '@SDFoundation';
 import cms from '@cms';
 import SelectEmailTemplate from '../candidates/interview/editModal/components/SelectEmailTemplate/SelectEmailTemplate';
 import ValidateDetailAlert from '../common/batchOperationValidate/ValidateDetailAlert';
+import { App } from '@/App';
 import { BATCH_VALIDATE_TYPE } from '../../../common/constant';
 // comment 3
 import { getI18n } from '../../../common/i18n';
