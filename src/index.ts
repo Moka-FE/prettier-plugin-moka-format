@@ -3,9 +3,24 @@ import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
 import { sortImport } from './import-sort';
-import { PACKAGES_FOOTER, PACKAGES_HEADER, REGS } from './constants';
+import { PACKAGES_FOOTER, PACKAGES_HEADER, PARSER_PLUGINS, REGS } from './constants';
 
 const options: SupportOptions = {
+  configuredRules: {
+    since: '1.0.0',
+    type: 'path',
+    array: true,
+    category: 'Global',
+    description: 'enable rule list',
+  },
+  parserPlugins: {
+    since: '1.0.0',
+    type: 'path',
+    category: 'Global',
+    array: true,
+    default: [{ value: PARSER_PLUGINS }],
+    description: 'Provide a list of rules for special syntax',
+  },
   importPackagesHeader: {
     since: '0.0.6',
     type: 'path',
@@ -67,16 +82,6 @@ const options: SupportOptions = {
     category: 'Global',
     default: false,
     description: 'Should specifiers be sorted?',
-  },
-  importOrderParserPlugins: {
-    since: '0.0.3',
-    type: 'path',
-    category: 'Global',
-    array: true,
-    // By default, we add ts and jsx as parsers but if users define something
-    // we take that option
-    default: [{ value: ['typescript', 'jsx'] }],
-    description: 'Provide a list of plugins for special syntax',
   },
 };
 

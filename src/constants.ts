@@ -47,3 +47,5 @@ export const PACKAGES_HEADER = [
 export const PACKAGES_FOOTER = ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'].map(
   (name) => getPackageRegExpString(name)
 );
+
+export const PARSER_PLUGINS = ['typescript', 'jsx'];
