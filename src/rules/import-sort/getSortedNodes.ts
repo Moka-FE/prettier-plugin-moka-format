@@ -100,13 +100,13 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
   } // maintain a copy of the nodes to extract comments from
 
   const finalNodesClone = finalNodes.map(clone);
-  const firstNodesComments = nodes[0].leadingComments; // Remove all comments from sorted nodes
+  const firstNodesComments = nodes[0]?.leadingComments; // Remove all comments from sorted nodes
 
   finalNodes.forEach(removeComments); // insert comments other than the first comments
 
   finalNodes.forEach((node, index) => {
     if (isEqual(nodes[0].loc, node.loc)) return;
-    addComments(node, 'leading', finalNodesClone[index].leadingComments || []);
+    addComments(node, 'leading', finalNodesClone[index]?.leadingComments || []);
   });
 
   if (firstNodesComments) {

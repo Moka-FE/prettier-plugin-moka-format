@@ -12,7 +12,7 @@ const options: SupportOptions = {
     array: true,
     default: [
       {
-        value: ['importSort'],
+        value: [],
       },
     ],
     category: 'Global',
