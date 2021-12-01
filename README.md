@@ -5,13 +5,13 @@
 npm
 
 ```shell script
-npm install --save-dev prettier-plugin-moka-sort
+npm install --save-dev prettier-plugin-moka-format
 ```
 
 or, using yarn
 
 ```shell script
-yarn add --dev prettier-plugin-moka-sort
+yarn add --dev prettier-plugin-moka-format
 ```
 
 
