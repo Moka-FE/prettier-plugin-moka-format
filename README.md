@@ -28,6 +28,30 @@ module.exports = {
 
 # API
 
+#### `configuredRules` 
+
+type: `string[]`
+
+default value: `[]`
+
+```json
+"configuredRules" : ['importSort']
+```
+
+desc: 启用的规则
+
+#### `parserPlugins` 
+
+type: `string[]`
+
+default value: `['typescript', 'jsx']`
+
+```json
+"parserPlugins" : ['typescript', 'jsx']
+```
+
+desc: babel parser的plugin 
+
 #### `importOrderSeparation` 
 
 type: `boolean`
