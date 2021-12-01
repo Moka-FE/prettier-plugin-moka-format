@@ -1,7 +1,7 @@
 import { CreateTraverseHookMapParams, EventName, PrettierOptions, Rule } from './types';
 import createEmitter, { Emitter } from './emitter';
 import { parse as babelParser, ParserOptions } from '@babel/parser';
-import { getExperimentalParserPlugins } from './import-sort/getExperimentalParserPlugins';
+import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
 import traverse, { NodePath } from '@babel/traverse';
 import { File } from '@babel/types';
 import generate from '@babel/generator';

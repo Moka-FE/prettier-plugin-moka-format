@@ -2,7 +2,7 @@ import { Parser, SupportOptions } from 'prettier';
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
-import { sortImport } from './import-sort';
+import { importSort } from './rules/import-sort';
 import { PACKAGES_FOOTER, PACKAGES_HEADER, PARSER_PLUGINS, REGS } from './constants';
 
 const options: SupportOptions = {
@@ -89,11 +89,11 @@ module.exports = {
   parsers: {
     babel: {
       ...babelParsers.babel,
-      preprocess: sortImport as Parser['preprocess'],
+      preprocess: importSort as Parser['preprocess'],
     },
     typescript: {
       ...typescriptParsers.typescript,
-      preprocess: sortImport as Parser['preprocess'],
+      preprocess: importSort as Parser['preprocess'],
     },
   },
   options,

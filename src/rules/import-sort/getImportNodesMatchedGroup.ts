@@ -1,6 +1,6 @@
 import { ImportDeclaration } from '@babel/types';
-import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
-import { ImportOrder } from '../types';
+import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../../constants';
+import { ImportOrder } from '../../types';
 
 /**
  * Get the regexp group to keep the import nodes.

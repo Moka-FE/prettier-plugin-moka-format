@@ -1,5 +1,5 @@
 import { ImportDeclaration } from '@babel/types';
-import { naturalSort } from '../natural-sort';
+import { naturalSort } from '../../utils/natural-sort';
 import { sortBy } from 'lodash';
 
 const UN_FIND = 9999;
