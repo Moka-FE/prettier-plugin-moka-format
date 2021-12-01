@@ -16,7 +16,6 @@ import {
   RuleCreateMap,
 } from './types';
 import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
-import { JsxAttributeSortRule } from './rules/jsx-attribute-sort';
 
 type SelectorFn = (path: NodePath) => void;
 type VisitorOption = { [key in EventName]: SelectorFn };
@@ -72,7 +71,6 @@ export const preprocess = (code: string, options: PrettierOptions) => {
     [key: string]: Rule;
   } = {
     importSort: importSortRule,
-    jsxAttributeSort: JsxAttributeSortRule,
   };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);
