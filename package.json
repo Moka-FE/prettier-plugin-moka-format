@@ -16,8 +16,10 @@
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
     "prepublishOnly": "npm run compile && npm run test",
     "postversion": "git push && git push --tags",
-    "format": "eslint \"src/**/*.ts\" --fix &&  prettier --write \"src/**/*.ts\" ",
-    "version": "npm run format && git add -A src"
+    "lint:fix": "eslint \"src/**/*.ts\" --fix &&  prettier --write \"src/**/*.ts\" ",
+    "commit": "git-cz",
+    "version": "npm run lint:fix && git add -A src",
+    "release": "standard-version"
   },
   "keywords": [
     "prettier",
@@ -43,9 +45,12 @@
     "javascript-natural-sort": "^0.7.1",
     "lodash": "4.17.21",
     "postcss-sorting": "^7.0.1",
+    "standard-version": "^9.3.2",
     "ts-node": "^10.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
     "@types/chai": "4.2.15",
     "@types/jest": "26.0.20",
     "@types/lodash": "4.14.168",
@@ -53,7 +58,10 @@
     "@types/prettier": "^2.4.2",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "^8.3.0",
+    "husky": "^7.0.4",
     "jest": "26.6.3",
     "prettier": "2.3.1",
     "ts-jest": "26.5.3",
@@ -61,5 +69,15 @@
   },
   "peerDependencies": {
     "prettier": "2.x"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
