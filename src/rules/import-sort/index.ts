@@ -4,7 +4,7 @@ import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 import { Rule } from '../../types';
 import { getSortedNodes } from './getSortedNodes';
 
-export const importSort: Rule['create'] = ({ options }) => {
+export const importSortCreate: Rule['create'] = ({ options }) => {
   const {
     importOrderSeparation,
     importOrderSortSpecifiers,
@@ -29,7 +29,7 @@ export const importSort: Rule['create'] = ({ options }) => {
       },
     },
     cycleHook: {
-      TraverseEnd: ({ ast, originalCode }) => {
+      TraverseEnd: ({ ast }) => {
         const allImports = getSortedNodes(importNodes, {
           importAliasRegExpList,
           importComponentRegExp,
@@ -46,6 +46,7 @@ export const importSort: Rule['create'] = ({ options }) => {
     },
   };
 };
-export default {
-  create: importSort,
+
+export const importSortRule: Rule = {
+  create: importSortCreate,
 };

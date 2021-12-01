@@ -5,7 +5,7 @@ import { File } from '@babel/types';
 
 import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE, newLineCharacters } from './constants';
 import createEmitter, { Emitter } from './emitter';
-import importSort from './rules/import-sort';
+import { importSortRule } from './rules/import-sort';
 import {
   CreateTraverseHookMapParams,
   EventName,
@@ -70,7 +70,7 @@ export const preprocess = (code: string, options: PrettierOptions) => {
   const ruleMap: {
     [key: string]: Rule;
   } = {
-    importSort: importSort,
+    importSort: importSortRule,
   };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);
