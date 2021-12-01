@@ -53,7 +53,7 @@ const createSelectorFn = ({
   options: PrettierOptions;
   ast: File;
 }): SelectorFn => {
-  return (path: NodePath, state?: any) => {
+  return (path: NodePath, state?: unknown) => {
     emitter.emit(visitorKey, {
       path,
       originalCode,

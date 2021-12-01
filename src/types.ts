@@ -31,9 +31,7 @@ export type TraverseRuleParams = {
   originalCode: string;
   options: PrettierOptions;
   emitter: Emitter;
-  state?: {
-    [key: string]: any;
-  };
+  state?: unknown;
 };
 export type LifeCycleRuleParams = {
   ast: File;
