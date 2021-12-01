@@ -1,3 +1,11 @@
+import generate from '@babel/generator';
+import { ParserOptions, parse as babelParser } from '@babel/parser';
+import traverse, { NodePath } from '@babel/traverse';
+import { File } from '@babel/types';
+
+import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE, newLineCharacters } from './constants';
+import createEmitter, { Emitter } from './emitter';
+import importSort from './rules/import-sort';
 import {
   CreateTraverseHookMapParams,
   EventName,
@@ -6,21 +14,10 @@ import {
   Rule,
   RuleCreateMap,
 } from './types';
-import createEmitter, { Emitter } from './emitter';
-import { parse as babelParser, ParserOptions } from '@babel/parser';
 import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
-import traverse, { NodePath } from '@babel/traverse';
-import { File } from '@babel/types';
-
-import generate from '@babel/generator';
-import { newLineCharacters } from './constants';
-import importSort from './rules/import-sort';
 
 type SelectorFn = (path: NodePath) => void;
-
-type VisitorOption = {
-  [key in EventName]: SelectorFn;
-};
+type VisitorOption = { [key in EventName]: SelectorFn };
 
 const createRuleListeners = (rule: Rule, ruleContext: CreateTraverseHookMapParams) => {
   return rule.create(ruleContext);
@@ -31,13 +28,15 @@ const createAst = (code: string, parserPlugins: string[]) => {
     sourceType: 'module',
     plugins: getExperimentalParserPlugins(parserPlugins),
   };
-
   return babelParser(code, parserOptions);
 };
 
 const getCodeFromAst = (ast: File) => {
   const { code } = generate(ast);
-  return code.replace(new RegExp(/"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/,'gi'), newLineCharacters);
+  return code.replace(
+    new RegExp(`"${PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE}";`, 'gi'),
+    newLineCharacters
+  );
 };
 
 const createSelectorFn = ({
@@ -67,37 +66,34 @@ const createSelectorFn = ({
 
 export const preprocess = (code: string, options: PrettierOptions) => {
   const { configuredRules, parserPlugins } = options;
-  const ruleMap: { [key: string]: Rule } = {
+  const ruleMap: {
+    [key: string]: Rule;
+  } = {
     importSort: importSort,
   };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);
-
   const visitorKeys: string[] = [];
-
   configuredRules.forEach((ruleKey) => {
     const rule = ruleMap[ruleKey];
-
     const ruleContext = {
       ast,
       options,
       emitter,
       originalCode: code,
     };
-
     const hookMap = createRuleListeners(rule, ruleContext);
-
     Object.keys(hookMap).forEach((scenesKey) => {
       const scenes = hookMap[scenesKey as keyof RuleCreateMap];
       Object.keys(scenes).forEach((visitorKey) => {
         if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
           visitorKeys.push(visitorKey);
         }
+
         emitter.on(visitorKey, scenes[visitorKey]);
       });
     });
   });
-
   const traverseOption: VisitorOption = visitorKeys.reduce((pre, visitorKey) => {
     pre[visitorKey] = createSelectorFn({
       emitter,
@@ -108,15 +104,12 @@ export const preprocess = (code: string, options: PrettierOptions) => {
     });
     return pre;
   }, {} as VisitorOption);
-
   traverse(ast, traverseOption);
-
   emitter.emit('TraverseEnd', {
     emitter,
     ast,
     originalCode: code,
     options,
   });
-
   return getCodeFromAst(ast);
 };

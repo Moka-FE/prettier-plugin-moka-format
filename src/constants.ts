@@ -7,7 +7,7 @@ export const newLineCharacters = '\n\n';
  */
 
 export const THIRD_PARTY_MODULES_SPECIAL_WORD = 'utils';
-const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE = 'PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE';
+export const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE = 'PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE';
 export const newLineNode = expressionStatement(
   stringLiteral(PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE)
 );
