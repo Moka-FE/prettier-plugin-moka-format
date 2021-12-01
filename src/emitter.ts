@@ -1,11 +1,11 @@
-import { EffectForTraverse, EventName, RuleParams } from './types';
+import { EventName, Listener, RuleParams } from './types';
 
 export type Emitter = {
-  on: (eventName: EventName, listener: EffectForTraverse) => void;
+  on: (eventName: EventName, listener: Listener) => void;
   emit: (eventName: EventName, ruleParams: RuleParams) => void;
   eventNames: () => EventName[];
 };
-type Listeners = { [key in EventName]: EffectForTraverse[] };
+type Listeners = { [key in EventName]: Listener[] };
 
 const createEmitter = (): Emitter => {
   const listeners: Listeners = Object.create(null);

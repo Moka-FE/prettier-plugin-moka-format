@@ -12,7 +12,6 @@ export interface ImportOrder {
 export interface PrettierOptions extends ParserOptions {
   // enable rule list
   configuredRules: string[]; // babel rules
-
   parserPlugins: string[];
   importAliasRegExpList: string[];
   importPackageRegExp: string;
@@ -43,10 +42,12 @@ export type LifeCycleRuleParams = {
   options: PrettierOptions;
 };
 export type RuleParams = TraverseRuleParams | LifeCycleRuleParams;
-export type EffectForTraverse = (params: TraverseRuleParams) => void;
-export type TraverseHookMap = { [key in EventName]: EffectForTraverse };
+
+export type Listener<T = RuleParams> = (params: T) => void;
+
+export type TraverseHookMap = { [key in EventName]: Listener<TraverseRuleParams> };
 export type OtherHookMap = {
-  [key: string]: (params: LifeCycleRuleParams) => void;
+  [key: string]: Listener<LifeCycleRuleParams>;
 };
 export type CreateTraverseHookMapParams = {
   emitter: Emitter;

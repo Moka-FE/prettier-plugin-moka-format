@@ -10,6 +10,7 @@ import {
   CreateTraverseHookMapParams,
   EventName,
   HOOK_TYPE,
+  Listener,
   PrettierOptions,
   Rule,
   RuleCreateMap,
@@ -90,7 +91,7 @@ export const preprocess = (code: string, options: PrettierOptions) => {
           visitorKeys.push(visitorKey);
         }
 
-        emitter.on(visitorKey, scenes[visitorKey]);
+        emitter.on(visitorKey, scenes[visitorKey] as Listener);
       });
     });
   });
