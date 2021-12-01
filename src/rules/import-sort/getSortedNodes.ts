@@ -1,9 +1,10 @@
+import { ImportDeclaration, addComments, removeComments } from '@babel/types';
 import { clone, isEqual } from 'lodash';
-import { ImportOrLine, ImportGroups, PrettierOptions, ImportOrder } from '../../types';
+
 import { IMPORT_ORDER_KEY, newLineNode } from '../../constants';
+import { ImportGroups, ImportOrLine, ImportOrder, PrettierOptions } from '../../types';
 import { getImportNodesMatchedGroup } from './getImportNodesMatchedGroup';
 import { createSortPackages, getSortedImportSpecifiers, sortOthers } from './sort';
-import { addComments, ImportDeclaration, removeComments } from '@babel/types';
 
 type GetSortedNodes = (
   nodes: ImportDeclaration[],
@@ -21,7 +22,6 @@ type GetSortedNodes = (
     >
   >
 ) => ImportOrLine[];
-
 export const getSortedNodes: GetSortedNodes = (nodes, options) => {
   const {
     importOrderSeparation,
@@ -33,7 +33,6 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     importPackagesFooter,
     importPackagesHeader,
   } = options;
-
   const importOrder: ImportOrder[] = [
     {
       group: IMPORT_ORDER_KEY.PACKAGES,
@@ -60,15 +59,10 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
       },
     },
   ];
-
   const originalNodes = nodes.map(clone);
   const finalNodes: ImportOrLine[] = [];
-
   const importOrderGroups = importOrder.reduce<ImportGroups>(
-    (groups, { group }) => ({
-      ...groups,
-      [group]: [],
-    }),
+    (groups, { group }) => ({ ...groups, [group]: [] }),
     {}
   );
 
@@ -86,12 +80,9 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
 
   for (const { group } of importOrder) {
     const groupNodes = importOrderGroups[group];
-
     if (groupNodes.length === 0) continue;
+    const sortedInsideGroup = sortByGroup[group](groupNodes); // Sort the import specifiers
 
-    const sortedInsideGroup = sortByGroup[group](groupNodes);
-
-    // Sort the import specifiers
     if (importOrderSortSpecifiers) {
       sortedInsideGroup.forEach((node) => getSortedImportSpecifiers(node));
     }
@@ -106,20 +97,15 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
   if (finalNodes.length > 0 && !importOrderSeparation) {
     // a newline after all imports
     finalNodes.push(newLineNode);
-  }
+  } // maintain a copy of the nodes to extract comments from
 
-  // maintain a copy of the nodes to extract comments from
   const finalNodesClone = finalNodes.map(clone);
+  const firstNodesComments = nodes[0].leadingComments; // Remove all comments from sorted nodes
 
-  const firstNodesComments = nodes[0].leadingComments;
+  finalNodes.forEach(removeComments); // insert comments other than the first comments
 
-  // Remove all comments from sorted nodes
-  finalNodes.forEach(removeComments);
-
-  // insert comments other than the first comments
   finalNodes.forEach((node, index) => {
     if (isEqual(nodes[0].loc, node.loc)) return;
-
     addComments(node, 'leading', finalNodesClone[index].leadingComments || []);
   });
 

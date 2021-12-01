@@ -12,8 +12,8 @@ export const getExperimentalParserPlugins = (
     // ParserPlugin can be either a string or and array of [name: string, options: object]
     // in prettier options the array will be sent in a JSON string
     const isParserPluginWithOptions = pluginNameOrJson.startsWith('[');
-
     let plugin;
+
     if (isParserPluginWithOptions) {
       try {
         plugin = JSON.parse(pluginNameOrJson) as ParserPluginWithOptions;

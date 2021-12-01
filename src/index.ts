@@ -1,15 +1,20 @@
-import { Parser, SupportOptions } from 'prettier';
+import { SupportOptions } from 'prettier';
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
-import { importSort } from './rules/import-sort';
 import { PACKAGES_FOOTER, PACKAGES_HEADER, PARSER_PLUGINS, REGS } from './constants';
+import { preprocess } from './preprocess';
 
 const options: SupportOptions = {
   configuredRules: {
     since: '1.0.0',
     type: 'path',
     array: true,
+    default: [
+      {
+        value: ['importSort'],
+      },
+    ],
     category: 'Global',
     description: 'enable rule list',
   },
@@ -18,7 +23,11 @@ const options: SupportOptions = {
     type: 'path',
     category: 'Global',
     array: true,
-    default: [{ value: PARSER_PLUGINS }],
+    default: [
+      {
+        value: PARSER_PLUGINS,
+      },
+    ],
     description: 'Provide a list of rules for special syntax',
   },
   importPackagesHeader: {
@@ -26,7 +35,11 @@ const options: SupportOptions = {
     type: 'path',
     array: true,
     category: 'Global',
-    default: [{ value: PACKAGES_HEADER }],
+    default: [
+      {
+        value: PACKAGES_HEADER,
+      },
+    ],
     description: 'package header order',
   },
   importPackagesFooter: {
@@ -34,7 +47,11 @@ const options: SupportOptions = {
     type: 'path',
     array: true,
     category: 'Global',
-    default: [{ value: PACKAGES_FOOTER }],
+    default: [
+      {
+        value: PACKAGES_FOOTER,
+      },
+    ],
     description: 'package footer order',
   },
   importAliasRegExpList: {
@@ -84,17 +101,10 @@ const options: SupportOptions = {
     description: 'Should specifiers be sorted?',
   },
 };
-
 module.exports = {
   parsers: {
-    babel: {
-      ...babelParsers.babel,
-      preprocess: importSort as Parser['preprocess'],
-    },
-    typescript: {
-      ...typescriptParsers.typescript,
-      preprocess: importSort as Parser['preprocess'],
-    },
+    babel: { ...babelParsers.babel, preprocess },
+    typescript: { ...typescriptParsers.typescript, preprocess },
   },
   options,
 };

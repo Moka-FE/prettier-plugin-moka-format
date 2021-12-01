@@ -1,11 +1,20 @@
-import { CreateTraverseHookMapParams, EventName, PrettierOptions, Rule } from './types';
+import {
+  CreateTraverseHookMapParams,
+  EventName,
+  HOOK_TYPE,
+  PrettierOptions,
+  Rule,
+  RuleCreateMap,
+} from './types';
 import createEmitter, { Emitter } from './emitter';
 import { parse as babelParser, ParserOptions } from '@babel/parser';
 import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
 import traverse, { NodePath } from '@babel/traverse';
 import { File } from '@babel/types';
+
 import generate from '@babel/generator';
 import { newLineCharacters } from './constants';
+import importSort from './rules/import-sort';
 
 type SelectorFn = (path: NodePath) => void;
 
@@ -28,7 +37,7 @@ const createAst = (code: string, parserPlugins: string[]) => {
 
 const getCodeFromAst = (ast: File) => {
   const { code } = generate(ast);
-  return code.replace(/"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi, newLineCharacters);
+  return code.replace(new RegExp(/"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/,'gi'), newLineCharacters);
 };
 
 const createSelectorFn = ({
@@ -58,7 +67,9 @@ const createSelectorFn = ({
 
 export const preprocess = (code: string, options: PrettierOptions) => {
   const { configuredRules, parserPlugins } = options;
-  const ruleMap: { [key: string]: Rule } = {};
+  const ruleMap: { [key: string]: Rule } = {
+    importSort: importSort,
+  };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);
 
@@ -74,11 +85,16 @@ export const preprocess = (code: string, options: PrettierOptions) => {
       originalCode: code,
     };
 
-    const traverseHookMap = createRuleListeners(rule, ruleContext);
+    const hookMap = createRuleListeners(rule, ruleContext);
 
-    Object.keys(traverseHookMap).forEach((visitorKey) => {
-      visitorKeys.push(visitorKey);
-      emitter.on(visitorKey, traverseHookMap[visitorKey as EventName]);
+    Object.keys(hookMap).forEach((scenesKey) => {
+      const scenes = hookMap[scenesKey as keyof RuleCreateMap];
+      Object.keys(scenes).forEach((visitorKey) => {
+        if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
+          visitorKeys.push(visitorKey);
+        }
+        emitter.on(visitorKey, scenes[visitorKey]);
+      });
     });
   });
 
@@ -94,6 +110,13 @@ export const preprocess = (code: string, options: PrettierOptions) => {
   }, {} as VisitorOption);
 
   traverse(ast, traverseOption);
+
+  emitter.emit('TraverseEnd', {
+    emitter,
+    ast,
+    originalCode: code,
+    options,
+  });
 
   return getCodeFromAst(ast);
 };

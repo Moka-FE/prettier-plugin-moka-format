@@ -1,19 +1,18 @@
+import { NodePath, Visitor } from '@babel/traverse';
 import { ExpressionStatement, File, ImportDeclaration } from '@babel/types';
 import { ParserOptions } from 'prettier';
 
 import { IMPORT_ORDER_KEY } from './constants';
 import { Emitter } from './emitter';
-import { NodePath, Visitor } from '@babel/traverse';
 
 export interface ImportOrder {
   group: IMPORT_ORDER_KEY;
   condition?: (str: string) => boolean;
 }
-
 export interface PrettierOptions extends ParserOptions {
   // enable rule list
-  configuredRules: string[];
-  // babel rules
+  configuredRules: string[]; // babel rules
+
   parserPlugins: string[];
   importAliasRegExpList: string[];
   importPackageRegExp: string;
@@ -24,35 +23,45 @@ export interface PrettierOptions extends ParserOptions {
   importPackagesHeader: string[];
   importPackagesFooter: string[];
 }
-
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;
-
 export type ImportGroups = Record<string, ImportDeclaration[]>;
-
 export type EventName = keyof Visitor | string;
-
-export type RuleParams = {
+export type TraverseRuleParams = {
   ast: File;
   path: NodePath;
   originalCode: string;
   options: PrettierOptions;
   emitter: Emitter;
-  state?: { [key: string]: any };
+  state?: {
+    [key: string]: any;
+  };
 };
-
-export type EffectForTraverse = (params: RuleParams) => void;
-
-export type TraverseHookMap = {
-  [key in EventName]: EffectForTraverse;
+export type LifeCycleRuleParams = {
+  ast: File;
+  emitter: Emitter;
+  originalCode: string;
+  options: PrettierOptions;
 };
-
+export type RuleParams = TraverseRuleParams | LifeCycleRuleParams;
+export type EffectForTraverse = (params: TraverseRuleParams) => void;
+export type TraverseHookMap = { [key in EventName]: EffectForTraverse };
+export type OtherHookMap = {
+  [key: string]: (params: LifeCycleRuleParams) => void;
+};
 export type CreateTraverseHookMapParams = {
   emitter: Emitter;
   options: PrettierOptions;
   originalCode: string;
   ast: File;
 };
-
+export enum HOOK_TYPE {
+  TRAVERSER_HOOK = 'traverseHook',
+  CYCLE_HOOK = 'cycleHook',
+}
+export type RuleCreateMap = {
+  [HOOK_TYPE.TRAVERSER_HOOK]: TraverseHookMap;
+  [HOOK_TYPE.CYCLE_HOOK]: OtherHookMap;
+};
 export type Rule = {
-  create: (params: CreateTraverseHookMapParams) => TraverseHookMap;
+  create: (params: CreateTraverseHookMapParams) => RuleCreateMap;
 };

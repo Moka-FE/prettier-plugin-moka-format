@@ -1,6 +1,7 @@
 import { ImportDeclaration } from '@babel/types';
-import { naturalSort } from '../../utils/natural-sort';
 import { sortBy } from 'lodash';
+
+import { naturalSort } from '../../utils/natural-sort';
 
 const UN_FIND = 9999;
 
@@ -18,7 +19,6 @@ const sortByReference = (arr: ImportDeclaration[], reference: string[]): ImportD
 };
 
 type SortFunction = (nodes: ImportDeclaration[]) => ImportDeclaration[];
-
 export const createSortPackages = (
   headerRegExpList: string[],
   footerRegExpList: string[]
@@ -27,9 +27,9 @@ export const createSortPackages = (
     const first: ImportDeclaration[] = [];
     const second: ImportDeclaration[] = [];
     const third: ImportDeclaration[] = [];
-
     nodes.forEach((node) => {
       const pack = node.source.value;
+
       if (getPathIndexByRegExpList(headerRegExpList, pack) !== UN_FIND) {
         first.push(node);
       } else if (getPathIndexByRegExpList(footerRegExpList, pack) !== UN_FIND) {
@@ -38,7 +38,6 @@ export const createSortPackages = (
         second.push(node);
       }
     });
-
     const secondPathList = second.map((node) => node.source.value).sort();
     return [
       ...sortByReference(first, headerRegExpList),
@@ -47,12 +46,10 @@ export const createSortPackages = (
     ];
   };
 };
-
 export const sortOthers: SortFunction = (nodes) => {
   const pathList = nodes.map((node) => node.source.value).sort((a, b) => naturalSort(a, b));
   return sortByReference(nodes, pathList);
 };
-
 export const getSortedImportSpecifiers = (node: ImportDeclaration) => {
   node.specifiers.sort((a, b) => {
     if (a.type !== b.type) {
