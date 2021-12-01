@@ -86,13 +86,15 @@ export const preprocess = (code: string, options: PrettierOptions) => {
     const hookMap = createRuleListeners(rule, ruleContext);
     Object.keys(hookMap).forEach((scenesKey) => {
       const scenes = hookMap[scenesKey as keyof RuleCreateMap];
-      Object.keys(scenes).forEach((visitorKey) => {
-        if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
-          visitorKeys.push(visitorKey);
-        }
+      if (scenes) {
+        Object.keys(scenes).forEach((visitorKey) => {
+          if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
+            visitorKeys.push(visitorKey);
+          }
 
-        emitter.on(visitorKey, scenes[visitorKey] as Listener);
-      });
+          emitter.on(visitorKey, scenes[visitorKey] as Listener);
+        });
+      }
     });
   });
   const traverseOption: VisitorOption = visitorKeys.reduce((pre, visitorKey) => {

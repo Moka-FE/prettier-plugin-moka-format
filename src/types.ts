@@ -60,8 +60,8 @@ export enum HOOK_TYPE {
   CYCLE_HOOK = 'cycleHook',
 }
 export type RuleCreateMap = {
-  [HOOK_TYPE.TRAVERSER_HOOK]: TraverseHookMap;
-  [HOOK_TYPE.CYCLE_HOOK]: OtherHookMap;
+  [HOOK_TYPE.TRAVERSER_HOOK]?: TraverseHookMap;
+  [HOOK_TYPE.CYCLE_HOOK]?: OtherHookMap;
 };
 export type Rule = {
   create: (params: CreateTraverseHookMapParams) => RuleCreateMap;

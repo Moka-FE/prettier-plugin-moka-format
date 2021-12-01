@@ -4,7 +4,7 @@ import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 import { Rule } from '../../types';
 import { getSortedNodes } from './getSortedNodes';
 
-export const importSortCreate: Rule['create'] = ({ options }) => {
+const importSortCreate: Rule['create'] = ({ options }) => {
   const {
     importOrderSeparation,
     importOrderSortSpecifiers,
