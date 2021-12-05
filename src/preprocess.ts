@@ -35,7 +35,9 @@ const createAst = (code: string, parserPlugins: string[]) => {
 };
 
 const getCodeFromAst = (ast: File) => {
-  const { code } = generate(ast);
+  const { code } = generate(ast, {
+    retainLines: true,
+  });
   return code.replace(
     new RegExp(`"${PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE}";`, 'gi'),
     newLineCharacters

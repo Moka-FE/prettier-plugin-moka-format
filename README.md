@@ -35,7 +35,7 @@ type: `string[]`
 default value: `[]`
 
 ```json
-"configuredRules" : ['importSort',"importAlias"]
+"configuredRules" : ['importSort',"importAlias","jsxAttributesSort"]
 ```
 
 desc: 启用的规则

@@ -152,7 +152,11 @@ const options: SupportOptions = {
     type: 'path',
     array: true,
     category: 'Global',
-    default: undefined,
+    default: [
+      {
+        value: [],
+      },
+    ],
     description: 'import sort ignore path list',
   },
 };
