@@ -1,4 +1,5 @@
 import { expressionStatement, stringLiteral } from '@babel/types';
+import { getPackageRegExpString } from './utils';
 
 export const newLineCharacters = '\n\n';
 /*
@@ -31,10 +32,6 @@ export const REGS = {
   OTHERS: '((\\.)\\w+)$',
 };
 
-const getPackageRegExpString = (name: string) => {
-  return `^(${name}\\/)|^(${name})$`;
-};
-
 export const PACKAGES_HEADER = [
   'react-hot-loader',
   'react',
@@ -45,8 +42,11 @@ export const PACKAGES_HEADER = [
   'react-router',
   'react-router-dom',
   'mage-react-router',
-].map((name) => getPackageRegExpString(name));
+].map(getPackageRegExpString);
 export const PACKAGES_FOOTER = ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'].map(
-  (name) => getPackageRegExpString(name)
+  getPackageRegExpString
 );
 export const PARSER_PLUGINS = ['typescript', 'jsx'];
+
+export const JSX_ATTRIBUTE_HEADER = [].map(getPackageRegExpString);
+export const JSX_ATTRIBUTE_FOOTER = [].map(getPackageRegExpString);

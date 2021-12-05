@@ -17,6 +17,7 @@ import {
 } from './types';
 import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
 import { importAliasRule } from './rules/import-alias';
+import { jsxAttributeSortRule } from './rules/jsx-attributes-sort';
 
 type SelectorFn = (path: NodePath) => void;
 type VisitorOption = { [key in EventName]: SelectorFn };
@@ -74,6 +75,7 @@ export const preprocess = (code: string, options: PrettierOptions) => {
   } = {
     importSort: importSortRule,
     importAlias: importAliasRule,
+    jsxAttributesSort: jsxAttributeSortRule,
   };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);

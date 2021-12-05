@@ -23,7 +23,9 @@ export const createSortPackages = (
         second.push(node);
       }
     });
-    const secondPathList = second.map((node) => node.source.value).sort();
+    const secondPathList = second
+      .map((node) => node.source.value)
+      .sort((a, b) => naturalSort(a, b));
     return [
       ...sortByReference(first, headerRegExpList, ['source', 'value']),
       ...sortByReference(second, secondPathList, ['source', 'value']),

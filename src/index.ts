@@ -8,10 +8,43 @@ import {
   PARSER_PLUGINS,
   REGS,
   ALIAS_CONVERSION_LEVEL,
+  JSX_ATTRIBUTE_HEADER,
+  JSX_ATTRIBUTE_FOOTER,
 } from './constants';
 import { preprocess } from './preprocess';
 
 const options: SupportOptions = {
+  jsxAttributeSortFunctionCreateProps: {
+    since: '1.0.3',
+    type: 'boolean',
+    default: false,
+    category: 'Global',
+    description: 'sort jsx function create props',
+  },
+  jsxAttributesHeader: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    default: [
+      {
+        value: JSX_ATTRIBUTE_HEADER,
+      },
+    ],
+    category: 'Global',
+    description: 'jsx attributes header order',
+  },
+  jsxAttributesFooter: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    default: [
+      {
+        value: JSX_ATTRIBUTE_FOOTER,
+      },
+    ],
+    category: 'Global',
+    description: 'jsx attributes footer order',
+  },
   configuredRules: {
     since: '1.0.0',
     type: 'path',
