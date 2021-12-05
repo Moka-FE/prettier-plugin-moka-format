@@ -16,6 +16,7 @@ import {
   RuleCreateMap,
 } from './types';
 import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
+import { importAliasRule } from './rules/import-alias';
 
 type SelectorFn = (path: NodePath) => void;
 type VisitorOption = { [key in EventName]: SelectorFn };
@@ -67,10 +68,12 @@ const createSelectorFn = ({
 
 export const preprocess = (code: string, options: PrettierOptions) => {
   const { configuredRules, parserPlugins } = options;
+
   const ruleMap: {
     [key: string]: Rule;
   } = {
     importSort: importSortRule,
+    importAlias: importAliasRule,
   };
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);

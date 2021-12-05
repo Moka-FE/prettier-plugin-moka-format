@@ -13,6 +13,10 @@ export interface PrettierOptions extends ParserOptions {
   // enable rule list
   configuredRules: string[]; // babel rules
   parserPlugins: string[];
+  // import alias
+  importAliasConversionLevel: string;
+
+  // import sort
   importAliasRegExpList: string[];
   importPackageRegExp: string;
   importComponentRegExp: string;
@@ -21,6 +25,7 @@ export interface PrettierOptions extends ParserOptions {
   importOrderSortSpecifiers: boolean;
   importPackagesHeader: string[];
   importPackagesFooter: string[];
+  importSortIgnorePathRegExpList: string[];
 }
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;
 export type ImportGroups = Record<string, ImportDeclaration[]>;
@@ -64,3 +69,11 @@ export type RuleCreateMap = {
 export type Rule = {
   create: (params: CreateTraverseHookMapParams) => RuleCreateMap;
 };
+
+export interface AliasConfig {
+  alias: string;
+  path: {
+    /** Glob values using absolute paths */
+    absolute: string;
+  };
+}

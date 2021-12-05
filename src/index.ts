@@ -2,7 +2,13 @@ import { SupportOptions } from 'prettier';
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
-import { PACKAGES_FOOTER, PACKAGES_HEADER, PARSER_PLUGINS, REGS } from './constants';
+import {
+  PACKAGES_FOOTER,
+  PACKAGES_HEADER,
+  PARSER_PLUGINS,
+  REGS,
+  ALIAS_CONVERSION_LEVEL,
+} from './constants';
 import { preprocess } from './preprocess';
 
 const options: SupportOptions = {
@@ -17,6 +23,14 @@ const options: SupportOptions = {
     ],
     category: 'Global',
     description: 'enable rule list',
+  },
+  importAliasConversionLevel: {
+    since: '1.0.3',
+    type: 'path',
+    array: false,
+    default: ALIAS_CONVERSION_LEVEL,
+    category: 'Global',
+    description: 'conditions for converting relative paths to aliases',
   },
   parserPlugins: {
     since: '1.0.0',
@@ -99,6 +113,14 @@ const options: SupportOptions = {
     category: 'Global',
     default: false,
     description: 'Should specifiers be sorted?',
+  },
+  importSortIgnorePathRegExpList: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    category: 'Global',
+    default: undefined,
+    description: 'import sort ignore path list',
   },
 };
 module.exports = {

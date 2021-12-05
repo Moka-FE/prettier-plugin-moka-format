@@ -14,7 +14,14 @@ const importSortCreate: Rule['create'] = ({ options }) => {
     importOtherRegExp,
     importPackagesHeader,
     importPackagesFooter,
+    filepath,
+    importSortIgnorePathRegExpList,
   } = options;
+
+  if (importSortIgnorePathRegExpList?.some((regExp) => new RegExp(regExp).test(filepath))) {
+    return {};
+  }
+
   const importNodes: ImportDeclaration[] = [];
   const importPath: NodePath[] = [];
   return {

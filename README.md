@@ -35,7 +35,7 @@ type: `string[]`
 default value: `[]`
 
 ```json
-"configuredRules" : ['importSort']
+"configuredRules" : ['importSort',"importAlias"]
 ```
 
 desc: 启用的规则
@@ -46,11 +46,21 @@ type: `string[]`
 
 default value: `['typescript', 'jsx']`
 
+desc: babel parser的plugin
+
 ```json
 "parserPlugins" : ['typescript', 'jsx']
 ```
 
-desc: babel parser的plugin 
+
+#### `importSortIgnorePathRegExpList` 
+
+type: `string[]`
+
+default value: `undefined`
+
+desc: 用来忽略`importSort`的正则数组
+
 
 #### `importOrderSeparation` 
 
@@ -88,7 +98,7 @@ desc: 对 imoprt 导入的 标识符 sort
 
 
 
-### 此处开始为分组相关api 
+### 此处为分组相关api 
 
 > **import 分为固定4组 `packages、components、others、 utils`**
 >
@@ -173,6 +183,14 @@ default:
 ```javascript
 ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms']
 ```
+
+#### `importAliasConversionLevel`
+
+type: `string`
+
+default: "2"
+
+desc: 相对路径替换别名的层级条件，默认是2层 `../../`
 
 
 
