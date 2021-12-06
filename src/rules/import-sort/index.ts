@@ -6,6 +6,7 @@ import { getSortedNodes } from './getSortedNodes';
 import { createAst, getCodeFromAst } from '../../utils';
 import { getAllCommentsFromNodes } from './getAllCommentsFromNodes';
 import { removeCommentsFromAst } from './removeCommentsFromAst';
+import { newLineNode } from '../../constants';
 
 const importSortCreate: Rule['create'] = ({ options }) => {
   const {
@@ -79,7 +80,7 @@ const importSortCreate: Rule['create'] = ({ options }) => {
 
         removeCommentsFromAst(ast, getAllCommentsFromNodes(allImports));
 
-        ast.program.body.unshift(...newAllImports);
+        ast.program.body.unshift(...newAllImports, newLineNode);
         ast.comments?.push(...(newAllImportsAst.comments || []));
         importPath.forEach((path) => path.remove());
       },
