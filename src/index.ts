@@ -14,12 +14,30 @@ import {
 import { preprocess } from './preprocess';
 
 const options: SupportOptions = {
-  jsxAttributeSortFunctionCreateProps: {
-    since: '1.0.3',
-    type: 'boolean',
-    default: false,
+  // base attribute
+  configuredRules: {
+    since: '1.0.0',
+    type: 'path',
+    array: true,
+    default: [
+      {
+        value: [],
+      },
+    ],
     category: 'Global',
-    description: 'sort jsx function create props',
+    description: 'enable rule list',
+  },
+  parserPlugins: {
+    since: '1.0.0',
+    type: 'path',
+    category: 'Global',
+    array: true,
+    default: [
+      {
+        value: PARSER_PLUGINS,
+      },
+    ],
+    description: 'Provide a list of rules for special syntax',
   },
   jsxAttributesHeader: {
     since: '1.0.3',
@@ -45,18 +63,7 @@ const options: SupportOptions = {
     category: 'Global',
     description: 'jsx attributes footer order',
   },
-  configuredRules: {
-    since: '1.0.0',
-    type: 'path',
-    array: true,
-    default: [
-      {
-        value: [],
-      },
-    ],
-    category: 'Global',
-    description: 'enable rule list',
-  },
+
   importAliasConversionLevel: {
     since: '1.0.3',
     type: 'path',
@@ -65,18 +72,7 @@ const options: SupportOptions = {
     category: 'Global',
     description: 'conditions for converting relative paths to aliases',
   },
-  parserPlugins: {
-    since: '1.0.0',
-    type: 'path',
-    category: 'Global',
-    array: true,
-    default: [
-      {
-        value: PARSER_PLUGINS,
-      },
-    ],
-    description: 'Provide a list of rules for special syntax',
-  },
+  // importSort attributes
   importPackagesHeader: {
     since: '0.0.6',
     type: 'path',
