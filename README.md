@@ -51,7 +51,7 @@ default value: `['typescript', 'jsx']`
 desc: `babel parser`的`plugin`
 
 ```json
-"parserPlugins" : ['typescript', 'jsx']
+"parserPlugins" : ["typescript", "jsx"]
 ```
 
 ## Rules of JavaScript
