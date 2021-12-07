@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.7...v1.0.8) (2021-12-07)
+
+
+### Docs
+
+* rEADME update ([390a08e](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/390a08ec28a9fbc18c60c1b27517d8da5b6033b7))
+
 ### [1.0.7](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.6...v1.0.7) (2021-12-07)
 
 
