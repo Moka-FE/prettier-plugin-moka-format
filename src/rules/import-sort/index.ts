@@ -1,8 +1,12 @@
 import { NodePath } from '@babel/traverse';
-import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
+import { file, ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { Rule } from '../../types';
 import { getSortedNodes } from './getSortedNodes';
+import { createAst, getCodeFromAst } from '../../utils';
+import { getAllCommentsFromNodes } from './getAllCommentsFromNodes';
+import { removeCommentsFromAst } from './removeCommentsFromAst';
+import { newLineNode } from '../../constants';
 
 const importSortCreate: Rule['create'] = ({ options }) => {
   const {
@@ -14,7 +18,14 @@ const importSortCreate: Rule['create'] = ({ options }) => {
     importOtherRegExp,
     importPackagesHeader,
     importPackagesFooter,
+    filepath,
+    importSortIgnorePathRegExpList,
   } = options;
+
+  if (importSortIgnorePathRegExpList?.some((regExp) => new RegExp(regExp).test(filepath))) {
+    return {};
+  }
+
   const importNodes: ImportDeclaration[] = [];
   const importPath: NodePath[] = [];
   return {
@@ -29,7 +40,7 @@ const importSortCreate: Rule['create'] = ({ options }) => {
       },
     },
     cycleHook: {
-      TraverseEnd: ({ ast }) => {
+      TraverseEnd: ({ ast, options }) => {
         const allImports = getSortedNodes(importNodes, {
           importAliasRegExpList,
           importComponentRegExp,
@@ -40,7 +51,38 @@ const importSortCreate: Rule['create'] = ({ options }) => {
           importPackagesHeader,
           importPackagesFooter,
         });
-        ast.program.body.unshift(...allImports);
+
+        const newAllImportsAst = createAst(
+          getCodeFromAst(
+            file({
+              type: 'Program',
+              body: allImports,
+              directives: [],
+              sourceType: 'module',
+              interpreter: ast.program.interpreter,
+              sourceFile: '',
+              leadingComments: [],
+              innerComments: [],
+              trailingComments: [],
+              start: 0,
+              end: 0,
+              loc: {
+                start: { line: 0, column: 0 },
+                end: { line: 0, column: 0 },
+              },
+            }),
+            false
+          ),
+          options.parserPlugins
+        );
+
+        const newAllImports: ImportDeclaration[] = newAllImportsAst.program
+          .body as ImportDeclaration[];
+
+        removeCommentsFromAst(ast, getAllCommentsFromNodes(importNodes));
+
+        ast.program.body.unshift(...newAllImports, newLineNode);
+        ast.comments?.push(...(newAllImportsAst.comments || []));
         importPath.forEach((path) => path.remove());
       },
     },

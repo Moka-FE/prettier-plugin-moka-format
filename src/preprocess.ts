@@ -1,9 +1,5 @@
-import generate from '@babel/generator';
-import { ParserOptions, parse as babelParser } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { File } from '@babel/types';
-
-import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE, newLineCharacters } from './constants';
 import createEmitter, { Emitter } from './emitter';
 import { importSortRule } from './rules/import-sort';
 import {
@@ -15,29 +11,15 @@ import {
   Rule,
   RuleCreateMap,
 } from './types';
-import { getExperimentalParserPlugins } from './utils/getExperimentalParserPlugins';
+import { importAliasRule } from './rules/import-alias';
+import { jsxAttributeSortRule } from './rules/jsx-attributes-sort';
+import { createAst, getCodeFromAst } from './utils';
 
 type SelectorFn = (path: NodePath) => void;
 type VisitorOption = { [key in EventName]: SelectorFn };
 
 const createRuleListeners = (rule: Rule, ruleContext: CreateTraverseHookMapParams) => {
   return rule.create(ruleContext);
-};
-
-const createAst = (code: string, parserPlugins: string[]) => {
-  const parserOptions: ParserOptions = {
-    sourceType: 'module',
-    plugins: getExperimentalParserPlugins(parserPlugins),
-  };
-  return babelParser(code, parserOptions);
-};
-
-const getCodeFromAst = (ast: File) => {
-  const { code } = generate(ast);
-  return code.replace(
-    new RegExp(`"${PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE}";`, 'gi'),
-    newLineCharacters
-  );
 };
 
 const createSelectorFn = ({
@@ -67,35 +49,60 @@ const createSelectorFn = ({
 
 export const preprocess = (code: string, options: PrettierOptions) => {
   const { configuredRules, parserPlugins } = options;
+
   const ruleMap: {
     [key: string]: Rule;
   } = {
     importSort: importSortRule,
+    importAlias: importAliasRule,
+    jsxAttributesSort: jsxAttributeSortRule,
   };
+
+  // 这里有顺序要求，importAlias 必须在importSort前面
+  const enableRules = [
+    {
+      key: 'importAlias',
+      enabled: false,
+    },
+    {
+      key: 'importSort',
+      enabled: false,
+    },
+    {
+      key: 'jsxAttributesSort',
+      enabled: false,
+    },
+  ].filter((item) => {
+    return configuredRules.find((ruleKey) => ruleKey === item.key);
+  });
+
   const emitter = createEmitter();
   const ast = createAst(code, parserPlugins);
   const visitorKeys: string[] = [];
-  configuredRules.forEach((ruleKey) => {
-    const rule = ruleMap[ruleKey];
-    const ruleContext = {
-      ast,
-      options,
-      emitter,
-      originalCode: code,
-    };
-    const hookMap = createRuleListeners(rule, ruleContext);
-    Object.keys(hookMap).forEach((scenesKey) => {
-      const scenes = hookMap[scenesKey as keyof RuleCreateMap];
-      if (scenes) {
-        Object.keys(scenes).forEach((visitorKey) => {
-          if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
-            visitorKeys.push(visitorKey);
-          }
 
-          emitter.on(visitorKey, scenes[visitorKey] as Listener);
-        });
-      }
-    });
+  enableRules.forEach(({ key }) => {
+    const rule = ruleMap[key];
+    if (rule) {
+      const ruleContext = {
+        ast,
+        options,
+        emitter,
+        originalCode: code,
+      };
+      const hookMap = createRuleListeners(rule, ruleContext);
+      Object.keys(hookMap).forEach((scenesKey) => {
+        const scenes = hookMap[scenesKey as keyof RuleCreateMap];
+        if (scenes) {
+          Object.keys(scenes).forEach((visitorKey) => {
+            if (scenesKey === HOOK_TYPE.TRAVERSER_HOOK) {
+              visitorKeys.push(visitorKey);
+            }
+
+            emitter.on(visitorKey, scenes[visitorKey] as Listener);
+          });
+        }
+      });
+    }
   });
   const traverseOption: VisitorOption = visitorKeys.reduce((pre, visitorKey) => {
     pre[visitorKey] = createSelectorFn({

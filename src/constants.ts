@@ -1,4 +1,5 @@
 import { expressionStatement, stringLiteral } from '@babel/types';
+import { getPackageRegExpString } from './utils';
 
 export const newLineCharacters = '\n\n';
 /*
@@ -17,6 +18,9 @@ export enum IMPORT_ORDER_KEY {
   UTILS = 'utils',
   OTHERS = 'others',
 }
+
+export const ALIAS_CONVERSION_LEVEL = '2';
+
 export const REGS = {
   ALIAS: [
     {
@@ -26,10 +30,6 @@ export const REGS = {
   PACKAGE: '^([a-z]|@)(.+)$',
   COMPONENT: '/([A-Z](\\w+))$',
   OTHERS: '((\\.)\\w+)$',
-};
-
-const getPackageRegExpString = (name: string) => {
-  return `^(${name}\\/)|^(${name})$`;
 };
 
 export const PACKAGES_HEADER = [
@@ -42,8 +42,11 @@ export const PACKAGES_HEADER = [
   'react-router',
   'react-router-dom',
   'mage-react-router',
-].map((name) => getPackageRegExpString(name));
+].map(getPackageRegExpString);
 export const PACKAGES_FOOTER = ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'].map(
-  (name) => getPackageRegExpString(name)
+  getPackageRegExpString
 );
 export const PARSER_PLUGINS = ['typescript', 'jsx'];
+
+export const JSX_ATTRIBUTE_HEADER = [].map(getPackageRegExpString);
+export const JSX_ATTRIBUTE_FOOTER = [].map(getPackageRegExpString);

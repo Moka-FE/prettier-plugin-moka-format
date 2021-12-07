@@ -2,10 +2,19 @@ import { SupportOptions } from 'prettier';
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 
-import { PACKAGES_FOOTER, PACKAGES_HEADER, PARSER_PLUGINS, REGS } from './constants';
+import {
+  PACKAGES_FOOTER,
+  PACKAGES_HEADER,
+  PARSER_PLUGINS,
+  REGS,
+  ALIAS_CONVERSION_LEVEL,
+  JSX_ATTRIBUTE_HEADER,
+  JSX_ATTRIBUTE_FOOTER,
+} from './constants';
 import { preprocess } from './preprocess';
 
 const options: SupportOptions = {
+  // base attribute
   configuredRules: {
     since: '1.0.0',
     type: 'path',
@@ -30,6 +39,40 @@ const options: SupportOptions = {
     ],
     description: 'Provide a list of rules for special syntax',
   },
+  jsxAttributesHeader: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    default: [
+      {
+        value: JSX_ATTRIBUTE_HEADER,
+      },
+    ],
+    category: 'Global',
+    description: 'jsx attributes header order',
+  },
+  jsxAttributesFooter: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    default: [
+      {
+        value: JSX_ATTRIBUTE_FOOTER,
+      },
+    ],
+    category: 'Global',
+    description: 'jsx attributes footer order',
+  },
+
+  importAliasConversionLevel: {
+    since: '1.0.3',
+    type: 'path',
+    array: false,
+    default: ALIAS_CONVERSION_LEVEL,
+    category: 'Global',
+    description: 'conditions for converting relative paths to aliases',
+  },
+  // importSort attributes
   importPackagesHeader: {
     since: '0.0.6',
     type: 'path',
@@ -99,6 +142,18 @@ const options: SupportOptions = {
     category: 'Global',
     default: false,
     description: 'Should specifiers be sorted?',
+  },
+  importSortIgnorePathRegExpList: {
+    since: '1.0.3',
+    type: 'path',
+    array: true,
+    category: 'Global',
+    default: [
+      {
+        value: [],
+      },
+    ],
+    description: 'import sort ignore path list',
   },
 };
 module.exports = {
