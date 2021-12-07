@@ -47,6 +47,7 @@
     "lodash": "4.17.21",
     "micromatch": "^4.0.4",
     "postcss-sorting": "^7.0.1",
+    "recast-yx": "^0.18.12",
     "slash": "^3.0.0",
     "standard-version": "^9.3.2",
     "ts-node": "^10.4.0",

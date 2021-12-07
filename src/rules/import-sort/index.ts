@@ -76,9 +76,10 @@ const importSortCreate: Rule['create'] = ({ options }) => {
           options.parserPlugins
         );
 
-        const newAllImports = newAllImportsAst.program.body;
+        const newAllImports: ImportDeclaration[] = newAllImportsAst.program
+          .body as ImportDeclaration[];
 
-        removeCommentsFromAst(ast, getAllCommentsFromNodes(allImports));
+        removeCommentsFromAst(ast, getAllCommentsFromNodes(importNodes));
 
         ast.program.body.unshift(...newAllImports, newLineNode);
         ast.comments?.push(...(newAllImportsAst.comments || []));

@@ -25,7 +25,7 @@ export const rewriteImport = (
   absoluteDir: string,
   levelCondition: number
 ): void => {
-  const regExp = new RegExp('(..\\/)' + `{${levelCondition}}`);
+  const regExp = new RegExp('(\\.\\./)' + `{${levelCondition}}`);
   if (regExp.test(node.source.value.trim())) {
     rewriteRelativePath(node, aliasConfigs, absoluteDir);
   }
