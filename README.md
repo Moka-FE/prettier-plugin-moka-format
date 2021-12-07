@@ -1,6 +1,6 @@
-# Prettier plugin moka format
+# Prettier Plugin Moka Format
 
-> 提示： 需要项目安装prettier 2.x 以上版本方可使用
+> 提示： 需要项目安装 prettier 2.x 以上版本方可使用
 
 ## Install
 
@@ -60,27 +60,41 @@ desc: `babel parser`的`plugin`
 2. [ImportAlias](#ImportAlias)
 3. [JsxAttributesSort](#JsxAttributesSort)
 
-
 ## ImportSort
+
 用来排序 import statement 的规则 ，有以下属性
 
-- [importOrderSeparation](#ImportOrderSeparation)
-- [importPackageRegExp](#ImportPackageRegExp)
-- [importComponentRegExp](#ImportComponentRegExp)
-- [importOtherRegExp](#ImportOtherRegExp)
-- [importOrderSortSpecifiers](#ImportOrderSortSpecifiers)
-- [importSortIgnorePathRegExpList](#ImportSortIgnorePathRegExpList)
-- [~~ImportAliasRegExpList~~](#~~ImportAliasRegExpList~~)
-- [importPackagesHeader](#ImportPackagesHeader)
-- [importPackagesFooter](#ImportPackagesFooter)
+- [Prettier Plugin Moka Format](#prettier-plugin-moka-format)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Base Rules](#base-rules)
+    - [`configuredRules`](#configuredrules)
+    - [`parserPlugins`](#parserplugins)
+  - [Rules of JavaScript](#rules-of-javascript)
+  - [ImportSort](#importsort)
+    - [ImportOrderSeparation](#importorderseparation)
+    - [ImportPackageRegExp](#importpackageregexp)
+    - [ImportComponentRegExp](#importcomponentregexp)
+    - [ImportOtherRegExp](#importotherregexp)
+    - [~~ImportAliasRegExpList~~](#importaliasregexplist)
+    - [ImportPackagesHeader](#importpackagesheader)
+    - [ImportPackagesFooter](#importpackagesfooter)
+    - [ImportOrderSortSpecifiers](#importordersortspecifiers)
+    - [ImportSortIgnorePathRegExpList](#importsortignorepathregexplist)
+  - [ImportAlias](#importalias)
+    - [ImportAliasConversionLevel](#importaliasconversionlevel)
+  - [JSXAttributesSort](#jsxattributessort)
+    - [JSXAttributesHeader](#jsxattributesheader)
+    - [JSXAttributesFooter](#jsxattributesfooter)
 
 ### ImportOrderSeparation
-> **import 分为固定4组 以 `packages、components、utils、others`** **的顺序排序**
+
+> **import 分为固定 4 组 以 `packages、components、utils、others`** **的顺序排序**
 >
-> 前三种通过正则匹配path判断import属于哪个分组
+> 前三种通过正则匹配 path 判断 import 属于哪个分组
 >
 > 匹配不到的统一归为 utils
-> 如果有本地alias ，可以配置`importAliasRegExpList`来避免被归为 packages (**如果开启了`importAlias`** 则无需`importAliasRegExpList`，此属性后期考虑去除，通过读取`tsconfig`识别)
+> 如果有本地 alias ，可以配置`importAliasRegExpList`来避免被归为 packages (**如果开启了`importAlias`** 则无需`importAliasRegExpList`，此属性后期考虑去除，通过读取`tsconfig`识别)
 >
 > 如果要覆盖 `importAliasRegExpList` 之类的配置，一定注意不要写成 `@` 这种，这个是正则匹配，写成 `@` 会导致 路径上所有 带 `@` 的都会被识别到， 例如 `@lingui`
 
@@ -90,14 +104,15 @@ default value: `false`
 
 ```js
 module.exports = {
-  "configuredRules":["importSort"],
-  "importOrderSeparation": true,
-}
+  configuredRules: ['importSort'],
+  importOrderSeparation: true,
+};
 ```
 
 desc: 排序分组之后的 import 之间 增加一行空行
 
 ### ImportPackageRegExp
+
 type: `string`
 
 default value: `^([a-z]|@)(.+)$`
@@ -105,6 +120,7 @@ default value: `^([a-z]|@)(.+)$`
 desc： 用于匹配 `packages` 的正则
 
 ### ImportComponentRegExp
+
 type : `string`
 
 default value: `/([A-Z](\w+))$`
@@ -117,7 +133,7 @@ type : `string`
 
 default value: `((\\.)\\w+)$`
 
-desc： 用于匹配 非js文件 的正则
+desc： 用于匹配 非 js 文件 的正则
 
 ### ~~ImportAliasRegExpList~~
 
@@ -125,9 +141,9 @@ type : `string[]`
 
 default value : `['^@/'] `
 
-> NOTE: 以下的package regExp 都为此格式 ^(${name}\\/)|^(${name})$
+> NOTE: 以下的 package regExp 都为此格式 ^(${name}\\/)|^(${name})$
 >
-> 用于 对 packages 组内部排序  header | other | footer
+> 用于 对 packages 组内部排序 header | other | footer
 >
 > 没有匹配到的会被放入 other
 
@@ -139,19 +155,19 @@ default :
 
 ```javascript
 [
-    'react-hot-loader',
-    'react',
-    'react-dom',
-    'redux',
-    'react-redux',
-    'prop-types',
-    'react-router',
-    'react-router-dom',
-    'mage-react-router',
-  ]
+  'react-hot-loader',
+  'react',
+  'react-dom',
+  'redux',
+  'react-redux',
+  'prop-types',
+  'react-router',
+  'react-router-dom',
+  'mage-react-router',
+];
 ```
 
-desc:  `packages`头部属性顺序，会被排在最前面
+desc: `packages`头部属性顺序，会被排在最前面
 
 ### ImportPackagesFooter
 
@@ -160,10 +176,10 @@ type: `string[]`
 default:
 
 ```javascript
-['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms']
+['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'];
 ```
 
-desc:  `packages`尾部属性顺序，会被排在最后面
+desc: `packages`尾部属性顺序，会被排在最后面
 
 ### ImportOrderSortSpecifiers
 
@@ -173,19 +189,19 @@ default value: false
 
 ```js
 module.exports = {
-  "configuredRules":["importSort"],
-  "importOrderSortSpecifiers":true
-}
+  configuredRules: ['importSort'],
+  importOrderSortSpecifiers: true,
+};
 ```
-
 
 ```js
 // before
-import { b, a } from 'xx' 
+import { b, a } from 'xx';
 
 // after
-import { a, b } from 'xx'
+import { a, b } from 'xx';
 ```
+
 desc: 对 import 导入的 标识符 sort
 
 ### ImportSortIgnorePathRegExpList
@@ -194,21 +210,20 @@ type: `string[]`
 
 default value: `[]`
 
-desc: 用来忽略`importSort`的正则数组, 一般是对import顺序有需求开启，例如样式引入顺序
+desc: 用来忽略`importSort`的正则数组, 一般是对 import 顺序有需求开启，例如样式引入顺序
 
 ```js
 module.exports = {
-  "configuredRules":["importSort"],
-  "importSortIgnorePathRegExpList": ["src/main-app/index.js","src/main-app/vendor.js"],
-}
+  configuredRules: ['importSort'],
+  importSortIgnorePathRegExpList: ['src/main-app/index.js', 'src/main-app/vendor.js'],
+};
 ```
 
-
 ## ImportAlias
-用于将相对路径替换为别名的format
+
+用于将相对路径替换为别名的 format
 
 - [importAliasConversionLevel](#ImportAliasConversionLevel)
-
 
 ### ImportAliasConversionLevel
 
@@ -224,7 +239,7 @@ import * as sdf from '@SDFoundation';
 import Avatar from '../common/Avatar';
 import { ContainerLoading } from '../common/ContainerLoading';
 
-// after 
+// after
 import { REGS } from '@/constants';
 import { Button, Dropdown, Icon, Tooltip } from 'sugar-design';
 import * as sdf from '@SDFoundation';
@@ -232,19 +247,20 @@ import Avatar from '../common/Avatar';
 import { ContainerLoading } from '../common/ContainerLoading';
 ```
 
-desc: 相对路径替换别名的层级条件，默认是2层 `../../`
-
+desc: 相对路径替换别名的层级条件，默认是 2 层 `../../`
 
 ## JSXAttributesSort
+
 jsx attributes 排序
 
 - [jsxAttributesHeader](#JSXAttributesHeader)
 - [jsxAttributesFooter](#JSXAttributesFooter)
 
-> JSX Attributes Sort 也分为 上中下 三组，分别是 `Header` `Other` `Footer` 
+> JSX Attributes Sort 也分为 上中下 三组，分别是 `Header` `Other` `Footer`
 > 匹配不到的属性都会丢进 `Other` 中按 ascii 顺序排列
 
 ### JSXAttributesHeader
+
 type: `string[]`
 
 default: `[]`
