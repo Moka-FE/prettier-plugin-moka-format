@@ -63,14 +63,6 @@ desc: `babel parser`的`plugin`
 ## ImportSort
 
 用来排序 import statement 的规则 ，有以下属性
-
-- [Prettier Plugin Moka Format](#prettier-plugin-moka-format)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Base Rules](#base-rules)
-    - [`configuredRules`](#configuredrules)
-    - [`parserPlugins`](#parserplugins)
-  - [Rules of JavaScript](#rules-of-javascript)
   - [ImportSort](#importsort)
     - [ImportOrderSeparation](#importorderseparation)
     - [ImportPackageRegExp](#importpackageregexp)
