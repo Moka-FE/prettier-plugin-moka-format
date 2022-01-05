@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.7...v1.0.8) (2022-01-05)
+
+
+### Bug Fixes
+
+* 修复ohter sort 排序错误问题 ([9baa4b1](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/9baa4b1551558e50567a087a10738feb37426312))
+
 ### [1.0.7](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.6...v1.0.7) (2021-12-07)
 
 
