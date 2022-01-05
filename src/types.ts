@@ -28,7 +28,6 @@ export interface PrettierOptions extends ParserOptions {
   importSortIgnorePathRegExpList: string[];
 
   //jsx attribute sort
-  jsxAttributeSortFunctionCreateProps: string;
   jsxAttributesHeader: string[];
   jsxAttributesFooter: string[];
 }
