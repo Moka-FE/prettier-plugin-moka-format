@@ -2,6 +2,7 @@ import { ImportDeclaration } from '@babel/types';
 
 import { naturalSort } from '../../utils/natural-sort';
 import { getPathIndexByRegExpList, sortByReference, UN_FIND } from '../../utils/sort';
+import { getPackageRegExpString } from '../../utils';
 
 type SortFunction = (nodes: ImportDeclaration[]) => ImportDeclaration[];
 export const createSortPackages = (
@@ -34,7 +35,10 @@ export const createSortPackages = (
   };
 };
 export const sortOthers: SortFunction = (nodes) => {
-  const pathList = nodes.map((node) => node.source.value).sort((a, b) => naturalSort(a, b));
+  const pathList = nodes
+    .map((node) => node.source.value)
+    .sort((a, b) => naturalSort(a, b))
+    .map((name) => getPackageRegExpString(name));
   return sortByReference(nodes, pathList, ['source', 'value']);
 };
 export const getSortedImportSpecifiers = (node: ImportDeclaration) => {
