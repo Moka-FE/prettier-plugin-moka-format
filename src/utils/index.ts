@@ -5,8 +5,8 @@ import { getExperimentalParserPlugins } from './getExperimentalParserPlugins';
 import { parse, print } from 'recast-yx';
 import generate from '@babel/generator';
 
-export const getPackageRegExpString = (name: string) => {
-  return `^(${name}\\/)|^(${name})$`;
+export const getStartKeyRegExpString = (key: string) => {
+  return `^(${key}\\/)|^(${key})$`;
 };
 export const getCodeFromAst = (ast: File, keepFormat = true) => {
   const { code } = keepFormat ? print(ast) : generate(ast);

@@ -1,5 +1,5 @@
 import { expressionStatement, stringLiteral } from '@babel/types';
-import { getPackageRegExpString } from './utils';
+import { getStartKeyRegExpString } from './utils';
 
 export const newLineCharacters = '\n\n';
 /*
@@ -42,11 +42,11 @@ export const PACKAGES_HEADER = [
   'react-router',
   'react-router-dom',
   'mage-react-router',
-].map(getPackageRegExpString);
+].map(getStartKeyRegExpString);
 export const PACKAGES_FOOTER = ['moka-ui', 'sugar-design', '@SDFoundation', '@SDV', '@cms'].map(
-  getPackageRegExpString
+  getStartKeyRegExpString
 );
 export const PARSER_PLUGINS = ['typescript', 'jsx'];
 
-export const JSX_ATTRIBUTE_HEADER = [].map(getPackageRegExpString);
-export const JSX_ATTRIBUTE_FOOTER = [].map(getPackageRegExpString);
+export const JSX_ATTRIBUTE_HEADER = [].map(getStartKeyRegExpString);
+export const JSX_ATTRIBUTE_FOOTER = [].map(getStartKeyRegExpString);

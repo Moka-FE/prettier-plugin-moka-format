@@ -7,7 +7,7 @@ import {
 import { getPathIndexByRegExpList, sortByReference, UN_FIND } from '../../utils/sort';
 import { isString } from 'lodash';
 import { naturalSort } from '../../utils/natural-sort';
-import { getPackageRegExpString } from '../../utils';
+import { getStartKeyRegExpString } from '../../utils';
 
 export const sortAttributes = (
   attributes: Array<JSXAttribute | JSXSpreadAttribute>,
@@ -43,7 +43,7 @@ export const sortAttributes = (
       isString(attribute.name.name) ? attribute.name.name : attribute.name.name.name
     )
     .sort((a, b) => naturalSort(a, b))
-    .map(getPackageRegExpString);
+    .map(getStartKeyRegExpString);
 
   return [
     ...spread,
