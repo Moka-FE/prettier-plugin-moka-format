@@ -37,7 +37,12 @@ const rewriteAliasToRelative = ({
     replacedAliasConfig.path.absolute
   );
 
-  const importRelativePath = path.relative(absoluteDir, nodeAbsPath);
+  let importRelativePath = path.relative(absoluteDir, nodeAbsPath);
+
+  // 同层级相对路径 会丢失 ./  这里单独补全
+  if (!new RegExp('^\\.').test(importRelativePath)) {
+    importRelativePath = './' + importRelativePath;
+  }
 
   if (!conditionRegExp.test(importRelativePath)) {
     node.source.value = slash(importRelativePath);
