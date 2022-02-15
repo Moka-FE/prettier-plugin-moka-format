@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.8...v1.1.0) (2022-02-15)
+
+
+### Features
+
+* add import alias to relative ([f410cc3](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/f410cc3574cf6d33038069fec13eb21e3b12ea5f))
+
+
+### Bug Fixes
+
+* fix err ([d8b31d1](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/d8b31d189316a506b86c8f2504020abd47e1f675))
+
+
+### Others
+
+* add husky hook pre-commit for lint:fix ([40ee249](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/40ee249610406222497bbe4552fedc647c9e923d))
+* **release:** 1.0.8 ([c0e46e5](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/c0e46e53eae63a6865f49401b3c3c1ed4886c3e0))
+
+
+### Docs
+
+* rEADME update ([bdf566f](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/bdf566f195a70176d32c1f21f7073b5347379976))
+* README update ([f3ca252](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/f3ca2528d73dfb71423a6e68e792c2ce06dbd5f7))
+* update ([c2eb7ab](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/c2eb7ab5c015745bc4377e621425cf43d8ba5a9b))
+
 ### [1.0.8](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.7...v1.0.8) (2022-01-05)
 
 
