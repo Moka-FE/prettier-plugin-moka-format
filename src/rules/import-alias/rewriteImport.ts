@@ -87,5 +87,6 @@ export const rewriteImport = (
     absoluteDir,
   });
 
-  node.source.value = getLowLevelPath(aliasPath, relativePath);
+  // alias 优先于 相对路径
+  node.source.value = getLowLevelPath(relativePath, aliasPath);
 };
