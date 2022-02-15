@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.1.0...v1.1.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* 修复同层级下 alias替换为相对路径错误问题 ([f46e4db](https://github.com/pipi-1997/prettier-plugin-moka-format/commit/f46e4db2153b45b95df799393114bcb9ac37df9a))
+
 ## [1.1.0](https://github.com/pipi-1997/prettier-plugin-moka-format/compare/v1.0.8...v1.1.0) (2022-02-15)
 
 
