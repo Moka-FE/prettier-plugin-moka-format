@@ -63,15 +63,6 @@ const options: SupportOptions = {
     category: 'Global',
     description: 'jsx attributes footer order',
   },
-
-  importAliasConversionLevel: {
-    since: '1.0.3',
-    type: 'path',
-    array: false,
-    default: ALIAS_CONVERSION_LEVEL,
-    category: 'Global',
-    description: 'conditions for converting relative paths to aliases',
-  },
   // importSort attributes
   importPackagesHeader: {
     since: '0.0.6',

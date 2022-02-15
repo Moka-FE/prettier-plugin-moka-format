@@ -22,30 +22,6 @@ describe('import alias', () => {
         parser: 'typescript',
         plugins: [plugin],
         configuredRules: ['importAlias'],
-        importAliasConversionLevel: '2',
-        filepath: 'tests/import-alias/alias-substitution/unformatted.ts',
-      }) as PrettierOptions
-    );
-
-    expect(actual).toBe(expected);
-  });
-
-  test('import alias to relative', () => {
-    const code: string = readFileSync(
-      resolve(__dirname, './alias-to-relative/unformatted.ts'),
-      'utf8'
-    );
-    const expected: string = readFileSync(
-      resolve(__dirname, './alias-to-relative/formatted.ts'),
-      'utf8'
-    );
-    const actual: string = format(
-      code,
-      merge(prettierOption, {
-        parser: 'typescript',
-        plugins: [plugin],
-        configuredRules: ['importAlias'],
-        importAliasConversionLevel: '4',
         filepath: 'tests/import-alias/alias-substitution/unformatted.ts',
       }) as PrettierOptions
     );

@@ -4,33 +4,51 @@ import path, { join } from 'path';
 import slash from 'slash';
 import { getStartKeyRegExpString } from '../../utils';
 
+const isRelativePath = (str: string) => /^\./.test(str);
+
 const getBestAlias = (aliasConfigs: AliasConfig[], filePath: string) =>
   aliasConfigs.find(({ path: { absolute } }) => filePath.indexOf(absolute) >= 0);
 
-const rewriteRelativeToAlias = (
+const getRelativeToAlias = (
   node: ImportDeclaration,
   aliasConfigs: AliasConfig[],
   absoluteDir: string
 ) => {
+  if (!isRelativePath(node.source.value)) {
+    return node.source.value;
+  }
+
   const absModulePath = join(absoluteDir, node.source.value);
   const aliasConfig = getBestAlias(aliasConfigs, absModulePath);
 
-  if (aliasConfig) {
-    node.source.value = slash(absModulePath.replace(aliasConfig.path.absolute, aliasConfig.alias));
+  if (!aliasConfig) {
+    return node.source.value;
   }
+
+  return slash(absModulePath.replace(aliasConfig.path.absolute, aliasConfig.alias));
 };
 
-const rewriteAliasToRelative = ({
+const getAliasToRelative = ({
   node,
-  replacedAliasConfig,
+  aliasConfigs,
   absoluteDir,
-  conditionRegExp,
 }: {
   node: ImportDeclaration;
-  replacedAliasConfig: AliasConfig;
+  aliasConfigs: AliasConfig[];
   absoluteDir: string;
-  conditionRegExp: RegExp;
 }) => {
+  if (isRelativePath(node.source.value)) {
+    return node.source.value;
+  }
+
+  const replacedAliasConfig = aliasConfigs.find((config) =>
+    new RegExp(getStartKeyRegExpString(config.alias)).test(node.source.value.trim())
+  );
+
+  if (!replacedAliasConfig) {
+    return node.source.value;
+  }
+
   const nodePath = node.source.value.trim();
   const nodeAbsPath = nodePath.replace(
     replacedAliasConfig.alias,
@@ -44,36 +62,30 @@ const rewriteAliasToRelative = ({
     importRelativePath = './' + importRelativePath;
   }
 
-  if (!conditionRegExp.test(importRelativePath)) {
-    node.source.value = slash(importRelativePath);
-  }
+  return slash(importRelativePath);
+};
+
+const getPathLevel = (str: string) => str.match(/\//g)?.length || 0;
+
+const getLowLevelPath = (path1: string, path2: string) => {
+  return getPathLevel(path1) < getPathLevel(path2) ? path1 : path2;
 };
 
 export const rewriteImport = (
   node: ImportDeclaration,
-  aliasConfigs: AliasConfig[],
-  absoluteDir: string,
-  levelCondition: number
+  aliasConfigs: AliasConfig[] = [],
+  absoluteDir: string
 ): void => {
-  if (!aliasConfigs?.length) {
+  if (!aliasConfigs.length) {
     return;
   }
 
-  const regExp = new RegExp('(\\.\\./)' + `{${levelCondition}}`);
+  const aliasPath = getRelativeToAlias(node, aliasConfigs, absoluteDir);
+  const relativePath = getAliasToRelative({
+    node,
+    aliasConfigs,
+    absoluteDir,
+  });
 
-  if (regExp.test(node.source.value.trim())) {
-    rewriteRelativeToAlias(node, aliasConfigs, absoluteDir);
-  }
-
-  const replacedAliasConfig = aliasConfigs.find((config) =>
-    new RegExp(getStartKeyRegExpString(config.alias)).test(node.source.value.trim())
-  );
-  if (replacedAliasConfig) {
-    rewriteAliasToRelative({
-      node,
-      replacedAliasConfig,
-      absoluteDir,
-      conditionRegExp: regExp,
-    });
-  }
+  node.source.value = getLowLevelPath(aliasPath, relativePath);
 };

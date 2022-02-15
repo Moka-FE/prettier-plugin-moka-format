@@ -13,9 +13,6 @@ export interface PrettierOptions extends ParserOptions {
   // enable rule list
   configuredRules: string[]; // babel rules
   parserPlugins: string[];
-  // import alias
-  importAliasConversionLevel: string;
-
   // import sort
   importAliasRegExpList: string[];
   importPackageRegExp: string;

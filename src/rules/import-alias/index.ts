@@ -5,7 +5,7 @@ import { dirname, resolve } from 'path';
 import { rewriteImport } from './rewriteImport';
 
 export const importAliasCreate: Rule['create'] = ({ options }) => {
-  const { importAliasConversionLevel, filepath } = options;
+  const { filepath } = options;
 
   const aliasConfigs = loadAliasConfigs(filepath);
 
@@ -28,9 +28,7 @@ export const importAliasCreate: Rule['create'] = ({ options }) => {
         }
 
         const currentFileAbsDir = dirname(resolve(filepath));
-        importNodes.forEach((node) =>
-          rewriteImport(node, aliasConfigs, currentFileAbsDir, Number(importAliasConversionLevel))
-        );
+        importNodes.forEach((node) => rewriteImport(node, aliasConfigs, currentFileAbsDir));
       },
     },
   };

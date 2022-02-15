@@ -19,8 +19,6 @@ export enum IMPORT_ORDER_KEY {
   OTHERS = 'others',
 }
 
-export const ALIAS_CONVERSION_LEVEL = '2';
-
 export const REGS = {
   ALIAS: [
     {

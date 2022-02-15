@@ -74,7 +74,6 @@ desc: `babel parser`的`plugin`
     - [ImportOrderSortSpecifiers](#importordersortspecifiers)
     - [ImportSortIgnorePathRegExpList](#importsortignorepathregexplist)
   - [ImportAlias](#importalias)
-    - [ImportAliasConversionLevel](#importaliasconversionlevel)
   - [JSXAttributesSort](#jsxattributessort)
     - [JSXAttributesHeader](#jsxattributesheader)
     - [JSXAttributesFooter](#jsxattributesfooter)
@@ -215,14 +214,6 @@ module.exports = {
 
 用于将相对路径替换为别名的 format
 
-- [importAliasConversionLevel](#ImportAliasConversionLevel)
-
-### ImportAliasConversionLevel
-
-type: `string`
-
-default: "2"
-
 ```javascript
 // before
 import { REGS } from '../../../src/constants';
@@ -239,7 +230,7 @@ import Avatar from '../common/Avatar';
 import { ContainerLoading } from '../common/ContainerLoading';
 ```
 
-desc: 相对路径替换别名的层级条件，默认是 2 层 `../../`
+desc: 相对路径替换别名的层级条件，根据 `/` 数量判断使用相对还是别名
 
 ## JSXAttributesSort
 
