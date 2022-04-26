@@ -65,10 +65,18 @@ const getAliasToRelative = ({
   return slash(importRelativePath);
 };
 
-const getPathLevel = (str: string) => str.match(/\//g)?.length || 0;
+const getRelativePathLevel = (str: string) => {
+  return str.match(/((?<!\.)|(?<=\.{2}))\//g)?.length || 0;
+};
 
-const getLowLevelPath = (path1: string, path2: string) => {
-  return getPathLevel(path1) < getPathLevel(path2) ? path1 : path2;
+const getAliasPathLevel = (str: string) => {
+  return str.match(/(?<!@)\//g)?.length || 0;
+};
+
+const getLowLevelPath = (relativePath: string, aliasPath: string) => {
+  return getRelativePathLevel(relativePath) < getAliasPathLevel(aliasPath)
+    ? relativePath
+    : aliasPath;
 };
 
 export const rewriteImport = (

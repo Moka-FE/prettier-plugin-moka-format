@@ -28,4 +28,26 @@ describe('import alias', () => {
 
     expect(actual).toBe(expected);
   });
+
+  test('import path level compare', () => {
+    const code: string = readFileSync(
+      resolve(__dirname, './level-compare/unformatted.ts'),
+      'utf8'
+    );
+    const expected: string = readFileSync(
+      resolve(__dirname, './level-compare/formatted.ts'),
+      'utf8'
+    );
+    const actual: string = format(
+      code,
+      merge(prettierOption, {
+        parser: 'typescript',
+        plugins: [plugin],
+        configuredRules: ['importAlias'],
+        filepath: 'tests/import-alias/alias-substitution/unformatted.ts',
+      }) as PrettierOptions
+    );
+
+    expect(actual).toBe(expected);
+  });
 });
