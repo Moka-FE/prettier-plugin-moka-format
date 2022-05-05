@@ -70,7 +70,7 @@ const getRelativePathLevel = (str: string) => {
 };
 
 const getAliasPathLevel = (str: string) => {
-  return str.match(/(?<!@)\//g)?.length || 0;
+  return str.match(/(?<!(@(\w|-)*))\//g)?.length || 0;
 };
 
 const getLowLevelPath = (relativePath: string, aliasPath: string) => {

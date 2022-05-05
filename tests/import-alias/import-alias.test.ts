@@ -44,7 +44,7 @@ describe('import alias', () => {
         parser: 'typescript',
         plugins: [plugin],
         configuredRules: ['importAlias'],
-        filepath: 'tests/import-alias/alias-substitution/unformatted.ts',
+        filepath: 'tests/import-alias/level-compare/unformatted.ts',
       }) as PrettierOptions
     );
 
