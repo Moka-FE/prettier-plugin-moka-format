@@ -230,7 +230,7 @@ import Avatar from '../common/Avatar';
 import { ContainerLoading } from '../common/ContainerLoading';
 ```
 
-desc: 相对路径替换别名的层级条件，根据 `/` 数量判断使用相对还是别名
+desc: 相对路径替换别名的层级条件，根据 `/` 计算层级判断使用相对路径还是别名，同层级下优先别名
 
 ## JSXAttributesSort
 
