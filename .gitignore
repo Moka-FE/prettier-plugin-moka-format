@@ -16,5 +16,3 @@ coverage/
 lib/
 
 .idea
-
-package-lock.json
