@@ -1,4 +1,15 @@
-# Prettier Plugin Moka Format
+<div align="center">
+  <h1>prettier-plugin-moka-format</h1>
+  
+  <p>
+    <img src="https://img.shields.io/npm/v/prettier-plugin-moka-format" alt="npm-version" />
+  </p>
+
+</div>
+
+
+<br />
+
 
 > 提示： 需要项目安装 prettier 2.x 以上版本方可使用
 
